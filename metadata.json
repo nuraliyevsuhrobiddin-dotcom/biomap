@@ -1,0 +1,6 @@
+{
+  "name": "BIOMap",
+  "description": "O'zbekistonning noyob va Qizil kitobga kiritilgan o'simliklarini sun'iy intellekt va GIS texnologiyalari yordamida monitoring qilish va xaritada ko'rsatish platformasi.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
