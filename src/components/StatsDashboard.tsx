@@ -621,7 +621,7 @@ export default function StatsDashboard({ observations: allObservations, currentU
       )}
       
       {/* Mini Stats Bento Grid row */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         
         {/* Total species cataloged */}
         <div className="bg-white rounded-3xl p-4 sm:p-5 border border-neutral-200/80 shadow-sm flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
@@ -673,7 +673,7 @@ export default function StatsDashboard({ observations: allObservations, currentU
       </div>
 
       {/* Modern Premium Category Tab Selector */}
-      <div className="flex flex-wrap items-center justify-start gap-1 bg-neutral-100 p-1 sm:p-1.5 rounded-[20px] sm:rounded-[24px] border border-neutral-200 shadow-sm max-w-full md:max-w-4xl">
+      <div className="flex w-full flex-wrap items-center justify-start gap-1 overflow-x-auto rounded-[20px] border border-neutral-200 bg-neutral-100 p-1 shadow-sm sm:rounded-[24px] sm:p-1.5 md:max-w-4xl">
         <button
           onClick={() => setActiveTab("umumiy")}
           className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl text-[11px] sm:text-xs font-bold transition-all ${
@@ -773,17 +773,17 @@ export default function StatsDashboard({ observations: allObservations, currentU
                 <p className="text-xs text-neutral-500 mb-3">
                   Ushbu jadval ma'lumotlarini Excel, GIS QGIS yoki boshqa statistik databazalarda tahlil qilish uchun yuklab oling.
                 </p>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
                 <button
                     onClick={handleExportCSV}
-                    className="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-3 min-h-[48px] rounded-xl text-sm font-bold transition flex items-center gap-1.5 shadow-sm"
+                    className="w-full bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-3 min-h-[48px] rounded-xl text-sm font-bold transition flex items-center justify-center gap-1.5 shadow-sm sm:w-auto"
                   >
                     <FileSpreadsheet className="w-4 h-4 text-emerald-100" />
                     <span>Telemetriyani yuklab olish (CSV / Excel)</span>
                   </button>
                 <button
                     onClick={handleExportJSON}
-                    className="bg-neutral-800 hover:bg-neutral-750 text-neutral-200 px-4 py-3 min-h-[48px] rounded-xl text-sm font-bold transition flex items-center gap-1.5 shadow-sm"
+                    className="w-full bg-neutral-800 hover:bg-neutral-750 text-neutral-200 px-4 py-3 min-h-[48px] rounded-xl text-sm font-bold transition flex items-center justify-center gap-1.5 shadow-sm sm:w-auto"
                   >
                     <Download className="w-4 h-4 text-amber-500" />
                     <span>JSON formatida eksport</span>
@@ -1198,7 +1198,7 @@ export default function StatsDashboard({ observations: allObservations, currentU
                   <span>Dala ma'lumotlari bo'yicha filtrlar</span>
                 </h4>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                   {/* Status selection */}
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[11px] font-bold text-neutral-500">Muhofaza maqomi (Qizil Kitob):</label>
@@ -1245,17 +1245,17 @@ export default function StatsDashboard({ observations: allObservations, currentU
                 </div>
 
                 {/* Exporter triggers */}
-                <div className="flex flex-wrap gap-3 mt-6 pt-5 border-t border-neutral-100">
+                <div className="mt-6 flex flex-col gap-3 border-t border-neutral-100 pt-5 sm:flex-row sm:flex-wrap">
                   <button
                     onClick={handleExportFilteredPDF}
-                    className="bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-sm"
+                    className="w-full bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2.5 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 shadow-sm sm:w-auto"
                   >
                     <Printer className="w-4 h-4 text-emerald-100" />
                     <span>Rasmiy PDF Hisobotini Chop etish</span>
                   </button>
                   <button
                     onClick={handleExportFilteredCSV}
-                    className="bg-neutral-800 hover:bg-neutral-750 text-neutral-200 px-5 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-sm"
+                    className="w-full bg-neutral-800 hover:bg-neutral-750 text-neutral-200 px-5 py-2.5 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 shadow-sm sm:w-auto"
                   >
                     <FileSpreadsheet className="w-4 h-4 text-amber-500" />
                     <span>Filtrlangan ma'lumotlarni CSV yuklash</span>

@@ -406,7 +406,7 @@ export default function Home({
   };
 
   return (
-    <div id="home_splash_root" className="w-full max-w-5xl mx-auto py-8 px-4 flex flex-col gap-12 select-none animate-fade-in">
+    <div id="home_splash_root" className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-3 py-4 select-none animate-fade-in sm:gap-12 sm:px-4 sm:py-8">
       
       {/* Editorial Header Section */}
       <div className="flex flex-col items-center text-center gap-6 max-w-3xl mx-auto mt-6">

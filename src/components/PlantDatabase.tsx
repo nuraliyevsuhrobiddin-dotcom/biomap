@@ -78,7 +78,7 @@ export default function PlantDatabase({ onShowOnMap, observations, initialSearch
   return (
     <div id="plant_database_container" className="flex flex-col gap-4 sm:gap-6 w-full max-w-7xl mx-auto py-4">
       {/* Search and Filters Hub */}
-      <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between bg-white px-4 sm:px-6 py-4 sm:py-5 rounded-[20px] shadow-sm border border-neutral-200">
+      <div className="flex flex-col gap-3 rounded-[20px] border border-neutral-200 bg-white px-4 py-4 shadow-sm sm:gap-4 sm:px-6 sm:py-5 md:flex-row md:items-center md:justify-between">
         <div className="relative w-full md:w-96">
           <input
             type="text"
@@ -93,7 +93,7 @@ export default function PlantDatabase({ onShowOnMap, observations, initialSearch
           <Search className="absolute left-4 top-3.5 w-4 h-4 text-neutral-400" />
         </div>
 
-        <div className="flex flex-wrap gap-3 w-full md:w-auto items-center">
+        <div className="flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center md:w-auto">
           <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-neutral-400">
             <Filter className="w-4 h-4 text-neutral-400" />
             <span>Filtrlar:</span>
@@ -204,10 +204,10 @@ export default function PlantDatabase({ onShowOnMap, observations, initialSearch
           {/* Drawer Body */}
           <div
             id="plant_detail_panel"
-            className="relative w-full max-w-lg bg-white h-full shadow-2xl flex flex-col animate-slide-in-right border-l border-neutral-200 z-10"
+            className="relative z-10 flex h-full w-full max-w-full flex-col border-l border-neutral-200 bg-white shadow-2xl animate-slide-in-right sm:max-w-lg"
           >
             {/* Header */}
-            <div className="flex justify-between items-start p-6 border-b border-neutral-100 bg-white shrink-0">
+            <div className="flex shrink-0 items-start justify-between border-b border-neutral-100 bg-white p-4 sm:p-6">
               <div>
                 <span className="text-xs uppercase font-bold tracking-widest text-brand-secondary font-mono">
                   {activePlant.oilasi}
@@ -228,7 +228,7 @@ export default function PlantDatabase({ onShowOnMap, observations, initialSearch
             </div>
 
             {/* Scrollable Content */}
-            <div className="flex-1 overflow-y-auto p-6 flex flex-col gap-6">
+            <div className="flex flex-1 flex-col gap-4 overflow-y-auto p-4 sm:gap-6 sm:p-6">
               <div className="relative w-full h-56 rounded-2xl overflow-hidden bg-neutral-100 border border-neutral-200 shadow-inner shrink-0">
                 <img
                   src={activePlant.image}
@@ -293,7 +293,7 @@ export default function PlantDatabase({ onShowOnMap, observations, initialSearch
             </div>
 
             {/* Footer */}
-            <div className="p-6 border-t border-neutral-100 bg-white shrink-0">
+            <div className="shrink-0 border-t border-neutral-100 bg-white p-4 sm:p-6">
               <button
                 onClick={() => onShowOnMap(activePlant.kordinata.lat, activePlant.kordinata.lng, activePlant.id)}
                 className="w-full bg-brand-primary hover:bg-brand-secondary text-neutral-900 py-3.5 rounded-2xl font-bold tracking-wide shadow-md hover:shadow-lg transition text-xs flex items-center justify-center gap-2"

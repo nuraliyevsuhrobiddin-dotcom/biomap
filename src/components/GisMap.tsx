@@ -600,7 +600,7 @@ export default function GisMap({
   };
 
   return (
-    <div id="gis_map_root" className="relative w-full h-[480px] sm:h-[520px] md:h-[620px] bg-neutral-900 rounded-[20px] overflow-hidden shadow-2xl border border-neutral-800">
+    <div id="gis_map_root" className="relative w-full h-[calc(100dvh-6.5rem)] min-h-[480px] sm:h-[520px] md:h-[620px] bg-neutral-900 rounded-[20px] overflow-hidden shadow-2xl border border-neutral-800">
       
       
       {/* Map Control HUD Overlay - Search and filters */}
@@ -939,7 +939,7 @@ export default function GisMap({
       {selectedObs && (
         <div
           id="gis_selected_observation_panel"
-          className="absolute bottom-4 left-3 right-3 md:left-4 md:right-auto md:w-96 rounded-[20px] bg-white/95 backdrop-blur-md p-4 shadow-2xl border border-neutral-200 text-neutral-800 z-[1000] transition-all duration-300 animate-slide-up flex flex-col gap-2.5 max-h-[50vh] md:max-h-none overflow-y-auto"
+          className="absolute bottom-[5.75rem] left-3 right-3 md:bottom-4 md:left-4 md:right-auto md:w-96 rounded-[20px] bg-white/95 backdrop-blur-md p-4 shadow-2xl border border-neutral-200 text-neutral-800 z-[1000] transition-all duration-300 animate-slide-up flex flex-col gap-2.5 max-h-[min(44vh,26rem)] md:max-h-none overflow-y-auto overscroll-contain"
         >
           <div className="flex items-start justify-between">
             <div>
@@ -1047,7 +1047,7 @@ export default function GisMap({
       <div 
         id="gis_control_panel_buttons" 
         className={`absolute right-4 z-[1000] flex flex-col gap-2 transition-all duration-300 ${
-          selectedObs ? "bottom-72 md:bottom-4" : "bottom-4"
+          selectedObs ? "bottom-[7rem] md:bottom-4" : "bottom-[5.5rem] md:bottom-4"
         }`}
       >
         <button

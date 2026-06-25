@@ -476,7 +476,7 @@ export default function AuthPage({
   }`;
 
   return (
-    <div className={`min-h-screen w-full ${bg} transition-colors duration-300 flex items-center justify-center p-4 md:p-6`}
+    <div className={`min-h-screen w-full ${bg} transition-colors duration-300 overflow-y-auto px-3 py-4 pb-24 sm:px-4 md:px-6 md:py-6 md:pb-6`}
       style={{ animation: "fadeInPage 0.5s ease forwards" }}>
 
       <style>{`
@@ -491,10 +491,9 @@ export default function AuthPage({
         .animate-bounce-subtle { animation: bounceSubtle 1.5s infinite ease-in-out; }
       `}</style>
 
-      <div className="w-full max-w-6xl mx-auto">
+      <div className="w-full max-w-6xl mx-auto pb-2">
         {/* ──────── 2-column layout ──────── */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 rounded-3xl overflow-hidden shadow-2xl"
-          style={{ minHeight: 640 }}>
+        <div className="grid grid-cols-1 lg:grid-cols-5 rounded-3xl overflow-hidden shadow-2xl lg:min-h-[640px]">
 
           {/* ═══════════════ LEFT PANEL (hero) ═══════════════ */}
           <div

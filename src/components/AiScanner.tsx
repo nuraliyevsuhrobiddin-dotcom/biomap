@@ -396,18 +396,18 @@ export default function AiScanner({
           </div>
 
           {/* Action controller buttons */}
-          <div className="flex gap-3 mt-3">
+          <div className="mt-3 flex flex-col gap-3 sm:flex-row">
             {isCameraActive ? (
               <button
                 onClick={stopCamera}
-                className="flex-1 bg-neutral-800 hover:bg-neutral-700 text-white py-3.5 min-h-[48px] rounded-2xl font-semibold text-sm transition"
+                className="w-full flex-1 bg-neutral-800 hover:bg-neutral-700 text-white py-3.5 min-h-[48px] rounded-2xl font-semibold text-sm transition"
               >
                 Kamerani o'chirish
               </button>
             ) : (
               <button
                 onClick={startCamera}
-                className="flex-1 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 py-3.5 min-h-[48px] rounded-2xl font-bold text-sm transition flex items-center justify-center gap-2 border border-neutral-300"
+                className="w-full flex-1 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 py-3.5 min-h-[48px] rounded-2xl font-bold text-sm transition flex items-center justify-center gap-2 border border-neutral-300"
               >
                 <Camera className="w-4.5 h-4.5" />
                 <span>Kamera</span>
@@ -416,7 +416,7 @@ export default function AiScanner({
 
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="flex-1 bg-neutral-900 hover:bg-neutral-800 text-white py-3.5 min-h-[48px] rounded-2xl font-bold text-sm transition flex items-center justify-center gap-2 shadow-sm"
+              className="w-full flex-1 bg-neutral-900 hover:bg-neutral-800 text-white py-3.5 min-h-[48px] rounded-2xl font-bold text-sm transition flex items-center justify-center gap-2 shadow-sm"
             >
               <Upload className="w-4.5 h-4.5 text-brand-primary" />
               <span>Rasm yuklash</span>
@@ -436,7 +436,7 @@ export default function AiScanner({
             <button
               onClick={analyzePlantImage}
               disabled={isLoading}
-              className="w-full mt-4 bg-brand-primary hover:bg-brand-secondary text-neutral-900 py-4 min-h-[52px] rounded-2xl font-bold transition shadow-md hover:shadow-xl text-sm flex items-center justify-center gap-2"
+              className="mt-4 w-full bg-brand-primary hover:bg-brand-secondary text-neutral-900 py-4 min-h-[52px] rounded-2xl font-bold transition shadow-md hover:shadow-xl text-sm flex items-center justify-center gap-2"
             >
               <Cpu className="w-5 h-5 animate-spin" style={{ animationDuration: isLoading ? '3s' : '0s' }} />
               <span>{isLoading ? "Qizil Kitob Tahlili Bormoqda..." : "Sun'iy Intellekt Bilan Aniqlash"}</span>
@@ -533,10 +533,10 @@ export default function AiScanner({
               </div>
 
               {/* Action buttons */}
-              <div className="flex gap-3 mt-4 border-t border-neutral-100 pt-4">
+              <div className="mt-4 flex flex-col gap-3 border-t border-neutral-100 pt-4 sm:flex-row">
                 <button
                   onClick={handleAddToMap}
-                  className="flex-1 bg-neutral-900 hover:bg-neutral-800 text-white py-3 rounded-2xl font-semibold text-xs tracking-wide transition flex items-center justify-center gap-1.5"
+                  className="w-full flex-1 bg-neutral-900 hover:bg-neutral-800 text-white py-3 rounded-2xl font-semibold text-xs tracking-wide transition flex items-center justify-center gap-1.5"
                 >
                   <CheckCircle2 className="w-4 h-4 text-brand-primary" />
                   <span>Xaritaga joylash</span>

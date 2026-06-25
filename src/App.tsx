@@ -372,31 +372,32 @@ export default function App() {
     <div className="min-h-screen bg-[#F5F5F5] text-[#212121] font-sans antialiased flex flex-col justify-between">
       
       {/* Premium Header Bar */}
-      <header className="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-neutral-200">
-        <div className="max-w-7xl mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
+      <header className="sticky top-0 z-50 border-b border-neutral-200 bg-white/80 backdrop-blur-md">
+        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-3 sm:px-4 md:h-16 md:px-6">
           
           {/* Brand Logo Identity */}
-          <div onClick={() => setActiveTab("home")} className="flex items-center gap-2.5 cursor-pointer">
-            <div className="w-10 h-10 rounded-xl bg-[#FFB300] flex items-center justify-center font-bold text-neutral-900 shadow-md">
-              <Layers className="w-5 h-5 text-neutral-950" />
+          <div onClick={() => setActiveTab("home")} className="flex min-w-0 items-center gap-2.5 cursor-pointer">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#FFB300] font-bold text-neutral-900 shadow-md md:h-10 md:w-10">
+              <Layers className="h-4 w-4 text-neutral-950 md:h-5 md:w-5" />
             </div>
-            <div>
-              <span className="text-lg font-display font-black tracking-tight text-neutral-900 block leading-none">
+            <div className="min-w-0">
+              <span className="block text-base font-display font-black tracking-tight text-neutral-900 leading-none md:text-lg">
                 BIOMap
               </span>
-              <span className="text-[10px] font-mono font-bold tracking-widest text-brand-secondary block mt-0.5">
+              <span className="mt-0.5 block text-[9px] font-mono font-bold tracking-widest text-brand-secondary md:text-[10px]">
                 O‘ZBEKISTON
               </span>
             </div>
           </div>
 
-          {/* Mobile Hamburger Icon */}
-          <div className="md:hidden flex items-center">
+          {/* Mobile quick actions */}
+          <div className="flex items-center gap-2 md:hidden">
             <button
               onClick={() => setIsMobileMenuOpen(true)}
-              className="p-2 -mr-2 text-neutral-600 hover:text-neutral-900 focus:outline-none"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-600 shadow-sm transition hover:text-neutral-900"
+              aria-label="Open menu"
             >
-              <Menu className="w-6 h-6" />
+              <Menu className="h-5 w-5" />
             </button>
           </div>
 
@@ -493,80 +494,63 @@ export default function App() {
         </div>
       </header>
 
-      {/* Mobile bottom drawer sheet menu (Android/iOS Native Style) */}
+      {/* Mobile quick actions sheet */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-[100] md:hidden">
-          {/* Backdrop blur overlay */}
-          <div 
-            className="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300"
+        <div className="fixed inset-0 z-[120] md:hidden">
+          <div
+            className="absolute inset-0 bg-black/45"
             onClick={() => setIsMobileMenuOpen(false)}
           />
-          {/* Bottom sheet drawer */}
-          <div className="absolute bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md rounded-t-[32px] shadow-[0_-10px_40px_rgba(0,0,0,0.15)] flex flex-col max-h-[85vh] animate-slide-up border-t border-neutral-200/50">
-            {/* Native drag handle */}
-            <div className="w-12 h-1.5 bg-neutral-350 rounded-full mx-auto my-3 shrink-0" />
-            
-            {/* Header */}
-            <div className="px-6 pb-4 flex items-center justify-between border-b border-neutral-100 shrink-0">
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-amber-500 flex items-center justify-center font-bold text-neutral-900 shadow-sm">
-                  <Layers className="w-4.5 h-4.5 text-neutral-950" />
-                </div>
-                <div>
-                  <span className="text-base font-black text-neutral-900 block leading-none">BIOMap Menyu</span>
-                  <span className="text-[9px] font-mono text-neutral-450 tracking-wider">NAVIGATSIYA</span>
-                </div>
+          <div className="absolute bottom-0 left-0 right-0 rounded-t-[24px] border-t border-neutral-200 bg-white/95 px-4 pb-6 pt-3 shadow-[0_-12px_40px_rgba(0,0,0,0.16)] backdrop-blur-md">
+            <div className="mx-auto mb-3 h-1.5 w-12 rounded-full bg-neutral-300" />
+            <div className="mb-3 flex items-center justify-between">
+              <div>
+                <p className="text-sm font-black text-neutral-900">Mobil ilova opsiyalari</p>
+                <p className="text-[11px] text-neutral-500">Tezkor harakatlar va profil</p>
               </div>
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="w-8 h-8 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-500 flex items-center justify-center text-xs font-bold transition"
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-neutral-100 text-neutral-600 transition hover:bg-neutral-200"
               >
-                ✕
+                <X className="h-4 w-4" />
               </button>
             </div>
-            
-            {/* Scrollable menu options */}
-            <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-2 pb-10">
-              {[
-                { id: "home", label: "Bosh sahifa", desc: "Asosiy yangiliklar, kutubxona va statistika", icon: HomeIcon },
-                { id: "map", label: "GIS Xarita", desc: "Noyob o'simliklar monitoring xaritasi", icon: Compass },
-                { id: "database", label: "O'simliklar Katalogi", desc: "Qizil kitob turlari ensiklopediyasi", icon: BookOpen },
-                { id: "scanner", label: "AI Skaner", desc: "Rasm orqali o'simlik turlarini aniqlash", icon: Cpu },
-                { id: "stats", label: "Statistika", desc: "Hisobotlar va ilmiy tahlillar", icon: BarChart },
-                { id: "researcher", label: "Kuzatuv qo'shish", desc: "Yangi dala hisobotini ro'yxatga olish", icon: PlusCircle },
-                { id: "profile", label: currentUser ? `Profil (${currentUser.fullname})` : "Kirish / Ro'yxatdan o'tish", desc: "Shaxsiy kabinet va sozlamalar", icon: UserIcon },
-              ].map((item) => (
+            <div className="space-y-2">
+              <button
+                onClick={() => {
+                  setActiveTab("profile");
+                  setFocusedObsId(null);
+                  setIsMobileMenuOpen(false);
+                }}
+                className="flex w-full items-center justify-between rounded-2xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-left"
+              >
+                <span className="text-sm font-semibold text-neutral-700">{currentUser ? "Profilga o'tish" : "Kirish / ro'yxatdan o'tish"}</span>
+                <UserIcon className="h-4 w-4 text-neutral-500" />
+              </button>
+              {deferredPrompt && (
                 <button
-                  key={item.id}
-                  onClick={() => {
-                    setActiveTab(item.id as any);
-                    setFocusedObsId(null);
+                  onClick={async () => {
+                    deferredPrompt.prompt();
+                    const { outcome } = await deferredPrompt.userChoice;
+                    console.log(`User response to the install prompt: ${outcome}`);
+                    setDeferredPrompt(null);
+                    setShowInstallBanner(false);
                     setIsMobileMenuOpen(false);
+                    localStorage.setItem("biomap_install_dismissed", "true");
                   }}
-                  className={`flex items-center gap-3.5 p-3 rounded-2xl text-left transition-all ${
-                    activeTab === item.id 
-                      ? "bg-amber-500/10 text-amber-800 border border-amber-500/20 font-extrabold animate-pulse" 
-                      : "bg-neutral-50 hover:bg-neutral-100 text-neutral-700 border border-transparent"
-                  }`}
+                  className="flex w-full items-center justify-between rounded-2xl bg-emerald-600 px-4 py-3 text-left text-white shadow-sm"
                 >
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border ${
-                    activeTab === item.id ? "bg-amber-500 text-slate-900 border-amber-400" : "bg-white border-neutral-200 text-neutral-450"
-                  }`}>
-                    <item.icon className="w-5 h-5" />
-                  </div>
-                  <div className="min-w-0">
-                    <span className="text-sm block font-bold leading-tight">{item.label}</span>
-                    <span className="text-[10px] text-neutral-450 block truncate mt-0.5">{item.desc}</span>
-                  </div>
+                  <span className="text-sm font-semibold">Ilovani o'rnatish</span>
+                  <Download className="h-4 w-4" />
                 </button>
-              ))}
+              )}
             </div>
           </div>
         </div>
       )}
 
       {/* Main viewport Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 md:px-6 py-4">
+      <main className="mx-auto flex-1 w-full max-w-7xl px-3 py-3 pb-32 sm:px-4 sm:pb-24 md:px-6 md:pb-4 md:py-4">
         {activeTab === "home" && (
           <Home
             onStartPlatform={() => setActiveTab("map")}
@@ -685,29 +669,35 @@ export default function App() {
         )}
       </main>
 
-      {/* Floating mobile navigation bar (Mobile first styling) */}
-      <footer className="md:hidden sticky bottom-0 bg-white/95 backdrop-blur-lg border-t border-neutral-200 z-50 p-2 pb-safe shadow-[0_-4px_20px_rgba(0,0,0,0.05)] w-full">
-        <div className="flex items-center justify-between gap-1 w-full max-w-[100vw] overflow-x-auto hide-scrollbar px-1">
+      {/* Mobile bottom navigation */}
+      <nav className="fixed bottom-2 left-1/2 z-50 w-[calc(100%-1rem)] max-w-[30rem] -translate-x-1/2 rounded-[28px] border border-neutral-200 bg-white/95 p-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.12)] backdrop-blur-xl md:hidden">
+        <div className="flex h-[68px] items-stretch justify-between gap-1 pb-[max(0.2rem,env(safe-area-inset-bottom))]">
           {[
-            { id: "home", icon: HomeIcon, label: "Asosiy" },
-            { id: "map", icon: Compass, label: "Xarita" },
-            { id: "database", icon: BookOpen, label: "Katalog" },
-            { id: "scanner", icon: Cpu, label: "AI Skaner" },
-            { id: "profile", icon: UserIcon, label: currentUser ? "Profil" : "Kirish" }
-          ].map(item => (
-            <button
-              key={item.id}
-              onClick={() => setActiveTab(item.id as any)}
-              className={`flex-1 flex flex-col items-center justify-center gap-1 min-h-[48px] py-1 px-0.5 transition-all ${
-                activeTab === item.id ? "text-amber-500 font-extrabold" : "text-neutral-400 hover:text-neutral-600"
-              }`}
-            >
-              <item.icon className={`w-5 h-5 transition-transform ${activeTab === item.id ? "scale-115 text-amber-500" : "text-neutral-400"}`} />
-              <span className="text-[9.5px] font-bold w-full text-center leading-tight">{item.label}</span>
-            </button>
-          ))}
+            { id: "home", icon: HomeIcon, label: "Home" },
+            { id: "map", icon: Compass, label: "Map" },
+            { id: "scanner", icon: Cpu, label: "AI Scan" },
+            { id: "database", icon: BookOpen, label: "Library" },
+            { id: "profile", icon: UserIcon, label: "Profile" }
+          ].map(item => {
+            const Icon = item.icon;
+            const isActive = activeTab === item.id;
+            return (
+              <button
+                key={item.id}
+                onClick={() => setActiveTab(item.id as any)}
+                className={`flex flex-1 min-w-0 flex-col items-center justify-center gap-1 rounded-[20px] px-1 py-2 transition-all ${
+                  isActive ? "bg-amber-500 text-white shadow-sm" : "text-neutral-500 hover:bg-neutral-50 hover:text-neutral-800"
+                }`}
+              >
+                <div className={`flex h-8 w-8 items-center justify-center rounded-full transition-all ${isActive ? "bg-white/20 text-current" : "bg-transparent text-current"}`}>
+                  <Icon className="h-4.5 w-4.5" />
+                </div>
+                <span className="max-w-full whitespace-nowrap text-[10px] font-semibold leading-none tracking-tight">{item.label}</span>
+              </button>
+            );
+          })}
         </div>
-      </footer>
+      </nav>
 
       {/* Floating PWA Install Banner */}
       {showInstallBanner && deferredPrompt && (
