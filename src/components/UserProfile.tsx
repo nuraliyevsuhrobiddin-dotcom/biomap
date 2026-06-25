@@ -488,18 +488,18 @@ export default function UserProfile({
     <div id="user_profile_container" className="w-full max-w-7xl mx-auto py-4 flex flex-col gap-8 animate-fade-in">
       
       {/* Title block */}
-      <div className="bg-white rounded-3xl p-6 border border-neutral-200/80 shadow-sm flex flex-col md:flex-row items-center gap-6 justify-between">
+      <div className="bg-white rounded-[20px] p-4 sm:p-6 border border-neutral-200/80 shadow-sm flex flex-col md:flex-row items-start md:items-center gap-4 justify-between">
         <div className="flex gap-4 items-center">
           <div className="w-12 h-12 rounded-2xl bg-amber-500/10 flex items-center justify-center text-amber-500 shrink-0">
             <UserIcon className="w-6 h-6" />
           </div>
           <div>
-            <h2 className="text-2xl font-display font-bold text-neutral-900 flex items-center gap-2">
+            <h2 className="text-xl sm:text-2xl font-display font-bold text-neutral-900 flex items-center gap-2">
               <span>Tadqiqotchi Akkauntlari va Profili</span>
               <Sparkles className="w-5 h-5 text-amber-500 animate-pulse" />
             </h2>
             <p className="text-xs text-neutral-500 mt-0.5">
-              O'simliklar hisobotlarini shaxsiy akkauntingiz ostida monitoring qiling, yozuvlarni geo-tahrirlang yoki o'chiring.
+              O'simliklar hisobotlarini shaxsiy akkauntingiz ostida monitoring qiling.
             </p>
           </div>
         </div>
@@ -507,10 +507,10 @@ export default function UserProfile({
 
       {currentUser ? (
         /* ==================== ACTIVE USER DASHBOARD ==================== */
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-8 items-stretch">
           
           {/* Left panel: Bio information & quick actions */}
-          <div className="lg:col-span-4 bg-white rounded-3xl p-6 border border-neutral-200/80 shadow-sm flex flex-col justify-between gap-6">
+          <div className="lg:col-span-4 bg-white rounded-[20px] p-4 sm:p-6 border border-neutral-200/80 shadow-sm flex flex-col justify-between gap-6">
             <div className="flex flex-col gap-6">
               
               {/* Profile Card Header */}
@@ -736,7 +736,7 @@ export default function UserProfile({
               </button>
             </div>
           </div>          {/* Right panel: Registered plants list & interactive management */}
-          <div className="lg:col-span-8 bg-white rounded-3xl p-6 border border-neutral-200/80 shadow-sm flex flex-col justify-between min-h-[500px]">
+          <div className="lg:col-span-8 bg-white rounded-[20px] p-4 sm:p-6 border border-neutral-200/80 shadow-sm flex flex-col justify-between min-h-[400px] sm:min-h-[500px]">
             <div>
               {/* Section Header */}
               <div className="flex justify-between items-center mb-6 pb-4 border-b border-neutral-100">

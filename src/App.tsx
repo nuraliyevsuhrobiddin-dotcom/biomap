@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Compass, BookOpen, Cpu, BarChart, PlusCircle, Layers, Clock, User as UserIcon, Home as HomeIcon, Download } from "lucide-react";
+import { Compass, BookOpen, Cpu, BarChart, PlusCircle, Layers, Clock, User as UserIcon, Home as HomeIcon, Download, Menu, X } from "lucide-react";
 import { Observation, User, PdfDocument, NewsArticle } from "./types";
 import { SEEDED_OBSERVATIONS } from "./data/plants";
 
@@ -82,6 +82,9 @@ export default function App() {
   // PWA install state
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [showInstallBanner, setShowInstallBanner] = useState(false);
+  
+  // Mobile Hamburger menu state
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleBeforeInstallPrompt = (e: Event) => {
@@ -387,6 +390,16 @@ export default function App() {
             </div>
           </div>
 
+          {/* Mobile Hamburger Icon */}
+          <div className="md:hidden flex items-center">
+            <button
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="p-2 -mr-2 text-neutral-600 hover:text-neutral-900 focus:outline-none"
+            >
+              <Menu className="w-6 h-6" />
+            </button>
+          </div>
+
           {/* Nav Links for Desktop screens */}
           <nav className="hidden md:flex items-center gap-1.5 bg-neutral-100 p-1 rounded-2xl border border-neutral-200">
             <button
@@ -471,15 +484,65 @@ export default function App() {
           </nav>
 
           {/* Time indicator (clocks) */}
-          <div className="flex items-center gap-4 text-xs font-mono font-bold text-neutral-500 bg-neutral-50 px-3.5 py-1.5 rounded-full border border-neutral-100">
+          <div className="hidden md:flex items-center gap-4 text-xs font-mono font-bold text-neutral-500 bg-neutral-50 px-3.5 py-1.5 rounded-full border border-neutral-100">
             <div className="flex items-center gap-1 text-emerald-600 animate-pulse">
               <Clock className="w-3.5 h-3.5" />
               <span>{timeStr}</span>
             </div>
           </div>
-
         </div>
       </header>
+
+      {/* Mobile Hamburger Fullscreen Menu */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 z-[60] bg-white flex flex-col md:hidden animate-fade-in">
+          <div className="flex items-center justify-between p-4 border-b border-neutral-100">
+            <div className="flex items-center gap-2.5">
+              <div className="w-10 h-10 rounded-xl bg-[#FFB300] flex items-center justify-center font-bold text-neutral-900 shadow-md">
+                <Layers className="w-5 h-5 text-neutral-950" />
+              </div>
+              <span className="text-lg font-display font-black tracking-tight text-neutral-900 block leading-none">
+                BIOMap Menyu
+              </span>
+            </div>
+            <button
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="p-2 text-neutral-500 hover:text-neutral-900 bg-neutral-100 rounded-full"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+          
+          <div className="flex flex-col p-4 gap-2 overflow-y-auto pb-20">
+            {[
+              { id: "home", label: "Bosh sahifa", icon: HomeIcon },
+              { id: "map", label: "GIS Xarita", icon: Compass },
+              { id: "database", label: "O'simliklar Katalogi", icon: BookOpen },
+              { id: "scanner", label: "AI Skaner", icon: Cpu },
+              { id: "stats", label: "Statistika", icon: BarChart },
+              { id: "researcher", label: "Kuzatuv qo'shish", icon: PlusCircle },
+              { id: "profile", label: currentUser ? `Profil (${currentUser.fullname.split(" ")[0]})` : "Kirish / Ro'yxatdan o'tish", icon: UserIcon },
+            ].map((item) => (
+              <button
+                key={item.id}
+                onClick={() => {
+                  setActiveTab(item.id as any);
+                  setFocusedObsId(null);
+                  setIsMobileMenuOpen(false);
+                }}
+                className={`flex items-center gap-3 p-4 rounded-2xl text-left font-bold transition-all ${
+                  activeTab === item.id 
+                    ? "bg-amber-500/10 text-amber-600 border border-amber-500/20" 
+                    : "bg-neutral-50 text-neutral-700 border border-transparent"
+                }`}
+              >
+                <item.icon className="w-5 h-5" />
+                <span className="text-base">{item.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Main viewport Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 md:px-6 py-4">
@@ -602,62 +665,27 @@ export default function App() {
       </main>
 
       {/* Floating mobile navigation bar (Mobile first styling) */}
-      <footer className="md:hidden sticky bottom-0 bg-white/95 backdrop-blur-lg border-t border-neutral-200 z-50 py-3 px-4 shadow-xl">
-        <div className="flex items-center justify-around">
-          <button
-            onClick={() => setActiveTab("home")}
-            className={`flex flex-col items-center gap-1 text-[10px] font-bold transition-all ${
-              activeTab === "home" ? "text-brand-secondary scale-105" : "text-neutral-400"
-            }`}
-          >
-            <HomeIcon className="w-5 h-5" />
-            <span>Bosh sahifa</span>
-          </button>
-          <button
-            onClick={() => setActiveTab("map")}
-            className={`flex flex-col items-center gap-1 text-[10px] font-bold transition-all ${
-              activeTab === "map" ? "text-brand-secondary scale-105" : "text-neutral-400"
-            }`}
-          >
-            <Compass className="w-5 h-5" />
-            <span>Xarita</span>
-          </button>
-          <button
-            onClick={() => setActiveTab("database")}
-            className={`flex flex-col items-center gap-1 text-[10px] font-bold transition-all ${
-              activeTab === "database" ? "text-brand-secondary scale-105" : "text-neutral-400"
-            }`}
-          >
-            <BookOpen className="w-5 h-5" />
-            <span>Katalog</span>
-          </button>
-          <button
-            onClick={() => setActiveTab("scanner")}
-            className={`flex flex-col items-center gap-1 text-[10px] font-bold transition-all ${
-              activeTab === "scanner" ? "text-brand-secondary scale-105 animate-pulse" : "text-neutral-400"
-            }`}
-          >
-            <Cpu className="w-5 h-5" />
-            <span>AI Scan</span>
-          </button>
-          <button
-            onClick={() => setActiveTab("stats")}
-            className={`flex flex-col items-center gap-1 text-[10px] font-bold transition-all ${
-              activeTab === "stats" ? "text-brand-secondary scale-105" : "text-neutral-400"
-            }`}
-          >
-            <BarChart className="w-5 h-5" />
-            <span>Statistika</span>
-          </button>
-          <button
-            onClick={() => setActiveTab("profile")}
-            className={`flex flex-col items-center gap-1 text-[10px] font-bold transition-all ${
-              activeTab === "profile" ? "text-brand-secondary scale-105" : "text-neutral-400"
-            }`}
-          >
-            <UserIcon className="w-5 h-5" />
-            <span>{currentUser ? "Profil" : "Kirish"}</span>
-          </button>
+      <footer className="md:hidden sticky bottom-0 bg-white/95 backdrop-blur-lg border-t border-neutral-200 z-50 p-2 pb-safe shadow-[0_-4px_20px_rgba(0,0,0,0.05)] w-full">
+        <div className="flex items-center justify-between gap-1 w-full max-w-[100vw] overflow-x-auto hide-scrollbar px-1">
+          {[
+            { id: "home", icon: HomeIcon, label: "Bosh sahifa" },
+            { id: "map", icon: Compass, label: "Xarita" },
+            { id: "database", icon: BookOpen, label: "Katalog" },
+            { id: "scanner", icon: Cpu, label: "AI Scan" },
+            { id: "stats", icon: BarChart, label: "Statistika" },
+            { id: "profile", icon: UserIcon, label: currentUser ? "Profil" : "Kirish" }
+          ].map(item => (
+            <button
+              key={item.id}
+              onClick={() => setActiveTab(item.id as any)}
+              className={`flex-1 flex flex-col items-center justify-center gap-1 min-h-[48px] py-1 px-0.5 transition-all w-[60px] max-w-[64px] ${
+                activeTab === item.id ? "text-brand-secondary" : "text-neutral-400 hover:text-neutral-600"
+              }`}
+            >
+              <item.icon className={`w-5 h-5 transition-transform ${activeTab === item.id ? "scale-110" : ""}`} />
+              <span className="text-[10px] font-bold w-full text-center truncate max-w-full px-0.5 leading-tight">{item.label}</span>
+            </button>
+          ))}
         </div>
       </footer>
 

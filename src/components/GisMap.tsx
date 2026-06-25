@@ -79,7 +79,7 @@ export default function GisMap({
         };
       });
   }, [allObservations]);
-  const [mapType, setMapType] = useState<"topographic" | "satellite" | "vector">("topographic");
+  const [mapType, setMapType] = useState<"vector" | "satellite" | "topographic" | "dark">("vector");
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState<"all" | "endangered">("all");
   const [selectedStatuses, setSelectedStatuses] = useState<string[]>([]);
@@ -108,6 +108,7 @@ export default function GisMap({
   const mapRef = useRef<any>(null);
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const tileLayerRef = useRef<any>(null);
+  const labelLayerRef = useRef<any>(null);
   const markersGroupRef = useRef<any>(null);
   const userGpsMarkerRef = useRef<any>(null);
   const isPickingCoordsRef = useRef(isPickingCoords);
@@ -226,6 +227,7 @@ export default function GisMap({
         mapRef.current = null;
         markersGroupRef.current = null;
         tileLayerRef.current = null;
+        labelLayerRef.current = null;
         userGpsMarkerRef.current = null;
         setMapLoaded(false);
       }
@@ -245,23 +247,41 @@ export default function GisMap({
       } catch (e) {
         console.error("Error removing old tile layer:", e);
       }
+      tileLayerRef.current = null;
     }
 
-    let url = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
-    let options: any = { maxZoom: 19 };
+    if (labelLayerRef.current && mapRef.current) {
+      try {
+        if (typeof mapRef.current.hasLayer === "function" && mapRef.current.hasLayer(labelLayerRef.current)) {
+          mapRef.current.removeLayer(labelLayerRef.current);
+        }
+      } catch (e) {
+        console.error("Error removing old label overlay layer:", e);
+      }
+      labelLayerRef.current = null;
+    }
+
+    let url = "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png";
+    let options: any = { maxZoom: 19, subdomains: 'abcd', attribution: "CartoDB" };
+    let loadLabels = false;
 
     if (mapType === "satellite") {
       // High resolution ESRI satellite tile maps
       url = "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}";
       options = { maxZoom: 19, attribution: "ESRI" };
-    } else if (mapType === "vector") {
-      // CartoDB Voyager (Yorqin va aniq vektor xarita)
-      url = "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png";
-      options = { maxZoom: 19, subdomains: 'abcd', attribution: "CartoDB" };
-    } else {
+      loadLabels = true;
+    } else if (mapType === "topographic") {
       // ESRI World Topo Map (Aniq va yorqin topografik xarita)
       url = "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}";
       options = { maxZoom: 19, attribution: "ESRI" };
+    } else if (mapType === "dark") {
+      // CartoDB Dark Matter (Ultra-premium dark map for GIS)
+      url = "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png";
+      options = { maxZoom: 19, subdomains: 'abcd', attribution: "CartoDB" };
+    } else {
+      // Default: CartoDB Voyager (Yorqin va aniq vektor xarita)
+      url = "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png";
+      options = { maxZoom: 19, subdomains: 'abcd', attribution: "CartoDB" };
     }
 
     try {
@@ -270,6 +290,17 @@ export default function GisMap({
         console.error("Tile load error:", err);
       });
       tileLayerRef.current = layer.addTo(mapRef.current);
+
+      if (loadLabels) {
+        // Overlay CartoDB Voyager Labels above the satellite layer
+        const labelsUrl = "https://{s}.basemaps.cartocdn.com/rastertiles/voyager_only_labels/{z}/{x}/{y}{r}.png";
+        const labelLayer = L.tileLayer(labelsUrl, { 
+          maxZoom: 19, 
+          subdomains: 'abcd',
+          pane: 'overlayPane' // Keep above satellite but below markers
+        });
+        labelLayerRef.current = labelLayer.addTo(mapRef.current);
+      }
     } catch (e) {
       console.error("Error adding tile layer:", e);
     }
@@ -569,13 +600,13 @@ export default function GisMap({
   };
 
   return (
-    <div id="gis_map_root" className="relative w-full h-[620px] bg-neutral-900 rounded-3xl overflow-hidden shadow-2xl border border-neutral-800">
+    <div id="gis_map_root" className="relative w-full h-[480px] sm:h-[520px] md:h-[620px] bg-neutral-900 rounded-[20px] overflow-hidden shadow-2xl border border-neutral-800">
       
       
       {/* Map Control HUD Overlay - Search and filters */}
-      <div id="gis_hud_search" className="absolute top-4 left-4 right-4 md:right-auto md:w-96 z-[1000] flex flex-col gap-2">
+      <div id="gis_hud_search" className="absolute top-3 left-3 right-3 md:left-4 md:top-4 md:right-auto md:w-96 z-[1000] flex flex-col gap-2">
         {/* Search row */}
-        <div className="bg-neutral-900/95 backdrop-blur-md px-4 py-2.5 rounded-2xl shadow-xl flex items-center justify-between border border-neutral-800 gap-2">
+        <div className="bg-neutral-900/95 backdrop-blur-md px-3 py-2 rounded-2xl shadow-xl flex items-center justify-between border border-neutral-800 gap-2 min-h-[48px]">
           <div className="flex items-center gap-2 flex-1 min-w-0">
             <Search className="w-4 h-4 text-amber-500 shrink-0" />
             <input
@@ -849,37 +880,53 @@ export default function GisMap({
       )}
 
       {/* Scientific layer indicator and Map Type controls */}
-      <div id="gis_map_layer_controls" className="absolute top-4 right-4 z-[1000] hidden md:flex flex-col gap-2 items-end">
-        <div className="bg-neutral-900/95 backdrop-blur-md p-1.5 rounded-2xl shadow-xl flex items-center gap-1 border border-neutral-850">
-          <button
-            onClick={() => setMapType("topographic")}
-            className={`px-3 py-1.5 rounded-xl text-[10px] font-extrabold uppercase tracking-widest transition ${
-              mapType === "topographic" ? "bg-amber-500 text-neutral-950" : "text-neutral-400 hover:text-white"
-            }`}
-          >
-            Standart
-          </button>
-          <button
-            onClick={() => setMapType("satellite")}
-            className={`px-3 py-1.5 rounded-xl text-[10px] font-extrabold uppercase tracking-widest transition ${
-              mapType === "satellite" ? "bg-neutral-800 text-amber-500 border border-neutral-700" : "text-neutral-400 hover:text-white"
-            }`}
-          >
-            Kosmik
-          </button>
+      <div id="gis_map_layer_controls" className="absolute top-3 right-3 md:top-4 md:right-4 z-[1000] flex flex-col gap-2 items-end">
+        <div className="bg-neutral-900/95 backdrop-blur-md p-1 rounded-xl md:rounded-2xl shadow-xl flex items-center gap-0.5 md:gap-1 border border-neutral-800 max-w-[85vw] overflow-x-auto hide-scrollbar">
           <button
             onClick={() => setMapType("vector")}
-            className={`px-3 py-1.5 rounded-xl text-[10px] font-extrabold uppercase tracking-widest transition ${
-              mapType === "vector" ? "bg-neutral-800 text-white" : "text-neutral-400 hover:text-white"
+            className={`px-2 md:px-3 py-1.5 rounded-lg text-[9px] md:text-[10px] font-extrabold uppercase tracking-widest transition ${
+              mapType === "vector" 
+                ? "bg-amber-500 text-neutral-950 font-black shadow-sm" 
+                : "text-neutral-400 hover:text-white hover:bg-neutral-800"
             }`}
           >
             Vektor
           </button>
+          <button
+            onClick={() => setMapType("satellite")}
+            className={`px-2 md:px-3 py-1.5 rounded-lg text-[9px] md:text-[10px] font-extrabold uppercase tracking-widest transition ${
+              mapType === "satellite" 
+                ? "bg-amber-500 text-neutral-950 font-black shadow-sm" 
+                : "text-neutral-400 hover:text-white hover:bg-neutral-800"
+            }`}
+          >
+            Gibrid
+          </button>
+          <button
+            onClick={() => setMapType("dark")}
+            className={`px-2 md:px-3 py-1.5 rounded-lg text-[9px] md:text-[10px] font-extrabold uppercase tracking-widest transition ${
+              mapType === "dark" 
+                ? "bg-amber-500 text-neutral-950 font-black shadow-sm" 
+                : "text-neutral-400 hover:text-white hover:bg-neutral-800"
+            }`}
+          >
+            Tungi
+          </button>
+          <button
+            onClick={() => setMapType("topographic")}
+            className={`px-2 md:px-3 py-1.5 rounded-lg text-[9px] md:text-[10px] font-extrabold uppercase tracking-widest transition ${
+              mapType === "topographic" 
+                ? "bg-amber-500 text-neutral-950 font-black shadow-sm" 
+                : "text-neutral-400 hover:text-white hover:bg-neutral-800"
+            }`}
+          >
+            Topo
+          </button>
         </div>
 
-        <div className="bg-neutral-950/80 backdrop-blur px-3 py-1.5 rounded-full text-[9px] text-neutral-400 flex items-center gap-1 font-mono tracking-wider border border-neutral-800">
+        <div className="bg-neutral-950/80 backdrop-blur px-2.5 py-1 rounded-full text-[8px] md:text-[9px] text-neutral-400 flex items-center gap-1 font-mono tracking-wider border border-neutral-850">
           <Layers className="w-3.5 h-3.5 text-amber-500" />
-          <span>GIS SCANNER: ON</span>
+          <span>GIS: FAOL</span>
         </div>
       </div>
 
@@ -893,7 +940,7 @@ export default function GisMap({
       {selectedObs && (
         <div
           id="gis_selected_observation_panel"
-          className="absolute bottom-4 left-4 right-4 md:right-auto md:w-96 rounded-3xl bg-white/95 backdrop-blur-md p-4 sm:p-5 shadow-2xl border border-neutral-200 text-neutral-800 z-[1000] transition-all duration-300 animate-slide-up flex flex-col gap-2.5 sm:gap-3.5 max-h-[260px] md:max-h-none overflow-y-auto"
+          className="absolute bottom-4 left-3 right-3 md:left-4 md:right-auto md:w-96 rounded-[20px] bg-white/95 backdrop-blur-md p-4 shadow-2xl border border-neutral-200 text-neutral-800 z-[1000] transition-all duration-300 animate-slide-up flex flex-col gap-2.5 max-h-[50vh] md:max-h-none overflow-y-auto"
         >
           <div className="flex items-start justify-between">
             <div>

@@ -155,23 +155,23 @@ export default function ResearcherPanel({
 
   if (!currentUser) {
     return (
-      <div className="w-full max-w-lg mx-auto py-16 flex flex-col items-center justify-center gap-6 text-center animate-fade-in bg-white border border-neutral-200 rounded-3xl p-8 my-8 shadow-sm">
+      <div className="w-full max-w-lg mx-auto py-10 sm:py-16 flex flex-col items-center justify-center gap-6 text-center animate-fade-in bg-white border border-neutral-200 rounded-[20px] p-6 sm:p-8 my-8 shadow-sm">
         <div className="w-20 h-20 rounded-3xl bg-neutral-900 flex items-center justify-center text-brand-primary shadow-xl border border-neutral-800 shrink-0">
           <AlertTriangle className="w-8 h-8 text-amber-500 animate-pulse" />
         </div>
         <div>
-          <h2 className="text-2xl font-display font-black text-neutral-900 tracking-tight leading-tight">
+          <h2 className="text-xl sm:text-2xl font-display font-black text-neutral-900 tracking-tight leading-tight">
             Tizimga kirish talab etiladi
           </h2>
-          <p className="text-xs text-neutral-500 mt-2 max-w-sm mx-auto leading-relaxed font-semibold">
-            Dala kuzatuvlarini qo'shish va monitoring ro'yxatiga kiritish uchun tizimda ro'yxatdan o'tishingiz yoki profilingizga kirishingiz lozim.
+          <p className="text-sm text-neutral-500 mt-2 max-w-sm mx-auto leading-relaxed font-semibold">
+            Dala kuzatuvlarini qo'shish uchun tizimda ro'yxatdan o'tishingiz yoki profilingizga kirishingiz lozim.
           </p>
         </div>
         <button
           onClick={() => onNavigateToTab && onNavigateToTab("profile")}
-          className="px-8 py-3.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-neutral-950 rounded-2xl font-bold text-sm shadow-lg hover:shadow-xl transition-all scale-100 active:scale-95 cursor-pointer flex items-center gap-2"
+          className="px-8 py-4 min-h-[56px] w-full sm:w-auto bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-neutral-950 rounded-2xl font-bold text-base shadow-lg hover:shadow-xl transition-all scale-100 active:scale-95 cursor-pointer flex items-center justify-center gap-2"
         >
-          <span>Ro‘yxatdan o‘tish / Kirish</span>
+          <span>Ro'yxatdan o'tish / Kirish</span>
         </button>
       </div>
     );
@@ -191,7 +191,7 @@ export default function ResearcherPanel({
           </p>
         </div>
       ) : (
-        <div className="bg-white rounded-3xl p-6 md:p-8 border border-neutral-200 shadow-sm">
+        <div className="bg-white rounded-[20px] p-4 sm:p-6 md:p-8 border border-neutral-200 shadow-sm">
           <div className="flex gap-4 items-center mb-6">
             <div className="w-12 h-12 rounded-2xl bg-amber-500/10 flex items-center justify-center text-brand-primary shrink-0">
               <PlusCircle className="w-6 h-6" />
@@ -224,7 +224,7 @@ export default function ResearcherPanel({
                   type="text"
                   required
                   placeholder="Masalan: Shrenk lolasi"
-                  className="bg-neutral-50 border border-neutral-200 rounded-xl py-3 px-4 text-sm text-neutral-800 focus:outline-none focus:border-brand-primary"
+                  className="bg-neutral-50 border border-neutral-200 rounded-xl py-3 px-4 text-sm text-neutral-800 focus:outline-none focus:border-brand-primary min-h-[48px]"
                   value={nomi}
                   onChange={(e) => setNomi(e.target.value)}
                 />
@@ -264,7 +264,7 @@ export default function ResearcherPanel({
                   Qizil kitob statusi
                 </label>
                 <select
-                  className="bg-neutral-50 border border-neutral-200 rounded-xl py-3 px-4 text-sm text-neutral-700 focus:outline-none focus:border-brand-primary"
+                  className="bg-neutral-50 border border-neutral-200 rounded-xl py-3 px-4 text-sm text-neutral-700 focus:outline-none focus:border-brand-primary min-h-[48px]"
                   value={status}
                   onChange={(e) => setStatus(e.target.value)}
                 >
@@ -286,10 +286,9 @@ export default function ResearcherPanel({
                   <button
                     type="button"
                     onClick={() => {
-                      // onStartMapPick ichida setActiveTab("map") allaqachon chaqiriladi (App.tsx)
                       onStartMapPick();
                     }}
-                    className="bg-amber-550/10 text-brand-secondary border border-amber-550/20 hover:bg-amber-500 hover:text-white hover:border-amber-500 text-xs font-bold px-4 py-2 rounded-xl transition flex items-center gap-1.5"
+                    className="bg-amber-550/10 text-brand-secondary border border-amber-550/20 hover:bg-amber-500 hover:text-white hover:border-amber-500 text-sm font-bold px-4 py-3 min-h-[48px] rounded-xl transition flex items-center gap-1.5"
                   >
                     <Navigation className="w-3.5 h-3.5 animate-pulse" />
                     <span>Xaritadan Bosib Tanlash</span>

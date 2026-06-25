@@ -440,31 +440,33 @@ export default function Home({
         </div>
 
         {/* Search Panel overlay */}
-        <form onSubmit={handleSearchSubmit} className="w-full max-w-xl relative flex items-center bg-white p-2 rounded-3xl shadow-xl border border-neutral-200">
-          <Search className="w-5 h-5 text-neutral-400 ml-3 shrink-0" />
-          <input
-            type="text"
-            required
-            placeholder="Shrenk lolasi, za'faron yoki oilasini yozing..."
-            className="w-full bg-transparent border-none text-neutral-800 text-sm focus:outline-none placeholder-neutral-400 pl-2.5 py-2.5"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
+        <form onSubmit={handleSearchSubmit} className="w-full max-w-xl flex flex-col sm:flex-row items-center bg-white p-2 rounded-3xl shadow-xl border border-neutral-200 gap-2">
+          <div className="flex w-full items-center pl-3">
+            <Search className="w-5 h-5 text-neutral-400 shrink-0" />
+            <input
+              type="text"
+              required
+              placeholder="Shrenk lolasi, za'faron yozing..."
+              className="w-full bg-transparent border-none text-neutral-800 text-sm focus:outline-none placeholder-neutral-400 pl-2.5 py-3 h-12"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
           <button
             type="submit"
-            className="bg-neutral-900 hover:bg-neutral-800 text-white font-bold text-xs tracking-wide px-5 py-3 rounded-2xl transition"
+            className="w-full sm:w-auto bg-neutral-900 hover:bg-neutral-800 text-white font-bold text-sm tracking-wide px-6 py-3 min-h-[48px] rounded-2xl transition shrink-0"
           >
             Skanerlash
           </button>
         </form>
 
         {/* Premium Category Tabs Navigation */}
-        <div id="home_categories_navigation" className="w-full max-w-xl mx-auto flex p-1 bg-neutral-100 rounded-2xl border border-neutral-200 mt-2">
+        <div id="home_categories_navigation" className="w-full max-w-xl mx-auto flex flex-col sm:flex-row p-1 bg-neutral-100 rounded-[20px] border border-neutral-200 mt-2 gap-1">
           <button
             id="tab_btn_umumiy"
             type="button"
             onClick={() => setActiveTab("umumiy")}
-            className={`flex-1 py-3 px-2 rounded-xl text-xs sm:text-sm font-display font-bold transition duration-200 flex items-center justify-center gap-2 select-none ${
+            className={`flex-1 min-h-[48px] px-2 rounded-xl text-sm font-display font-bold transition duration-200 flex items-center justify-center gap-2 select-none ${
               activeTab === "umumiy"
                 ? "bg-white text-neutral-900 shadow-sm border border-neutral-200/50"
                 : "text-neutral-500 hover:text-neutral-850 hover:bg-white/50"
@@ -478,7 +480,7 @@ export default function Home({
             id="tab_btn_yangiliklar"
             type="button"
             onClick={() => setActiveTab("yangiliklar")}
-            className={`flex-1 py-3 px-2 rounded-xl text-xs sm:text-sm font-display font-bold transition duration-200 flex items-center justify-center gap-2 select-none ${
+            className={`flex-1 min-h-[48px] px-2 rounded-xl text-sm font-display font-bold transition duration-200 flex items-center justify-center gap-2 select-none ${
               activeTab === "yangiliklar"
                 ? "bg-white text-neutral-900 shadow-sm border border-neutral-200/50"
                 : "text-neutral-500 hover:text-neutral-850 hover:bg-white/50"
@@ -492,7 +494,7 @@ export default function Home({
             id="tab_btn_kutubxona"
             type="button"
             onClick={() => setActiveTab("kutubxona")}
-            className={`flex-1 py-3 px-2 rounded-xl text-xs sm:text-sm font-display font-bold transition duration-200 flex items-center justify-center gap-2 select-none ${
+            className={`flex-1 min-h-[48px] px-2 rounded-xl text-sm font-display font-bold transition duration-200 flex items-center justify-center gap-2 select-none ${
               activeTab === "kutubxona"
                 ? "bg-white text-neutral-900 shadow-sm border border-neutral-200/50"
                 : "text-neutral-500 hover:text-neutral-850 hover:bg-white/50"
@@ -511,7 +513,7 @@ export default function Home({
           <div
             id="home_map_preview"
             onClick={onStartPlatform}
-            className="relative w-full h-[280px] md:h-[350px] rounded-[32px] overflow-hidden shadow-2xl border border-neutral-200 cursor-pointer group flex items-center justify-center bg-cover bg-center"
+            className="relative w-full h-[280px] md:h-[350px] rounded-[20px] overflow-hidden shadow-2xl border border-neutral-200 cursor-pointer group flex items-center justify-center bg-cover bg-center"
             style={{ backgroundImage: `url(${map3dBackground})` }}
           >
             {/* Dark glassmorphic overlay for maximum text readability and sci-fi aesthetic */}
@@ -563,7 +565,7 @@ export default function Home({
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         
         {/* Core 1: AI scan */}
-        <div className="bg-white rounded-3xl p-5 border border-neutral-200/80 shadow-sm flex gap-4 items-start hover:shadow-md transition">
+        <div className="bg-white rounded-[20px] p-5 border border-neutral-200/80 shadow-sm flex gap-4 items-start hover:shadow-md transition w-full">
           <div className="w-10 h-10 rounded-2xl bg-amber-500/10 flex items-center justify-center text-brand-primary shrink-0">
             <Cpu className="w-5 h-5" />
           </div>
@@ -576,7 +578,7 @@ export default function Home({
         </div>
 
         {/* Core 2: Dynamic database */}
-        <div className="bg-white rounded-3xl p-5 border border-neutral-200/80 shadow-sm flex gap-4 items-start hover:shadow-md transition">
+        <div className="bg-white rounded-[20px] p-5 border border-neutral-200/80 shadow-sm flex gap-4 items-start hover:shadow-md transition w-full">
           <div className="w-10 h-10 rounded-2xl bg-red-500/10 flex items-center justify-center text-red-500 shrink-0">
             <ShieldAlert className="w-5 h-5" />
           </div>
@@ -589,7 +591,7 @@ export default function Home({
         </div>
 
         {/* Core 3: GPS mapping */}
-        <div className="bg-white rounded-3xl p-5 border border-neutral-200/80 shadow-sm flex gap-4 items-start hover:shadow-md transition">
+        <div className="bg-white rounded-[20px] p-5 border border-neutral-200/80 shadow-sm flex gap-4 items-start hover:shadow-md transition w-full">
           <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 shrink-0">
             <CheckCircle2 className="w-5 h-5" />
           </div>
@@ -607,7 +609,7 @@ export default function Home({
 
       {/* Latest Flora News & Discoveries Panel (Google Search Grounded) */}
       {activeTab === "yangiliklar" && (
-        <div id="flora_news_panel" className="bg-white rounded-[32px] p-6 md:p-8 border border-neutral-200/80 shadow-sm flex flex-col gap-6 animate-fade-in mt-2">
+        <div id="flora_news_panel" className="bg-white rounded-[20px] p-4 sm:p-6 md:p-8 border border-neutral-200/80 shadow-sm flex flex-col gap-6 animate-fade-in mt-2 w-full">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-neutral-100 pb-5">
           <div className="flex gap-4 items-center">
             <div className="w-12 h-12 rounded-2xl bg-amber-500/10 flex items-center justify-center text-amber-500 shrink-0">
@@ -625,12 +627,12 @@ export default function Home({
           </div>
           
           {/* Quick inline search for news */}
-          <div className="bg-neutral-50 border border-neutral-200 px-3.5 py-1.5 rounded-xl flex items-center gap-2 w-full md:w-64">
+          <div className="bg-neutral-50 border border-neutral-200 px-3.5 py-1.5 rounded-xl flex items-center gap-2 w-full md:w-64 min-h-[48px]">
             <Search className="w-4 h-4 text-neutral-450 shrink-0" />
             <input
               type="text"
               placeholder="Yangiliklardan qidirish..."
-              className="bg-transparent text-xs text-neutral-800 placeholder-neutral-400 focus:outline-none w-full"
+              className="bg-transparent text-sm text-neutral-800 placeholder-neutral-400 focus:outline-none w-full h-full"
               value={newsSearchQuery}
               onChange={(e) => setNewsSearchQuery(e.target.value)}
             />
@@ -643,7 +645,7 @@ export default function Home({
               <button
                 key={cat}
                 onClick={() => setSelectedNewsCat(cat)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition capitalize tracking-wide select-none ${
+                className={`px-4 py-2 min-h-[48px] rounded-xl text-sm font-bold transition capitalize tracking-wide select-none ${
                   selectedNewsCat === cat
                     ? "bg-amber-500 text-neutral-950 shadow-sm"
                     : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
@@ -658,7 +660,7 @@ export default function Home({
             <button
               type="button"
               onClick={() => setShowSubmitModal(true)}
-              className="bg-amber-500 hover:bg-amber-600 text-neutral-950 font-bold text-xs px-4 py-2 rounded-xl flex items-center gap-1.5 transition select-none shadow-sm"
+              className="bg-amber-500 hover:bg-amber-600 text-neutral-950 font-bold text-sm px-5 py-3 min-h-[48px] rounded-xl flex items-center gap-1.5 transition select-none shadow-sm w-full sm:w-auto justify-center"
             >
               <Plus className="w-4 h-4" />
               <span>Yangilik yuklash</span>
@@ -880,8 +882,8 @@ export default function Home({
       {activeTab === "kutubxona" && (
         <div 
           id="flora_library_panel" 
-        className="bg-white rounded-[32px] p-6 md:p-8 border border-neutral-200/80 shadow-sm flex flex-col gap-6 animate-fade-in"
-      >
+          className="bg-white rounded-[20px] p-4 sm:p-6 md:p-8 border border-neutral-200/80 shadow-sm flex flex-col gap-6 animate-fade-in w-full"
+        >
         {/* Section Header */}
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-neutral-100 pb-5">
           <div className="flex gap-4 items-center">
@@ -901,12 +903,12 @@ export default function Home({
 
           {/* Document Search & Filter Controls */}
           <div className="flex items-center gap-2 w-full md:w-auto flex-wrap md:flex-nowrap">
-            <div className="bg-neutral-50 border border-neutral-200 px-3.5 py-1.5 rounded-xl flex items-center gap-2 w-full md:w-56 shrink-0">
+            <div className="bg-neutral-50 border border-neutral-200 px-3.5 py-1.5 rounded-xl flex items-center gap-2 w-full md:w-56 shrink-0 min-h-[48px]">
               <Search className="w-4 h-4 text-neutral-400 shrink-0" />
               <input
                 type="text"
                 placeholder="Kutubxonadan izlash..."
-                className="bg-transparent text-xs text-neutral-800 placeholder-neutral-400 focus:outline-none w-full"
+                className="bg-transparent text-sm text-neutral-800 placeholder-neutral-400 focus:outline-none w-full h-full"
                 value={docSearchQuery}
                 onChange={(e) => setDocSearchQuery(e.target.value)}
               />
@@ -921,7 +923,7 @@ export default function Home({
               <button
                 key={cat}
                 onClick={() => setDocCategoryFilter(cat)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition select-none ${
+                className={`px-4 py-2 min-h-[48px] rounded-xl text-sm font-bold transition select-none ${
                   docCategoryFilter === cat
                     ? "bg-amber-500 text-neutral-950 shadow-sm"
                     : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
@@ -943,21 +945,21 @@ export default function Home({
           {/* Left Block: Usability Compliant Upload Dropzone */}
           <div className="lg:col-span-4 flex flex-col gap-4">
             {!currentUser ? (
-              <div className="border-2 border-dashed border-neutral-200 rounded-3xl p-6 flex flex-col items-center justify-center text-center gap-4 min-h-[220px] bg-neutral-50/50">
+              <div className="border-2 border-dashed border-neutral-200 rounded-[20px] p-6 flex flex-col items-center justify-center text-center gap-4 min-h-[220px] bg-neutral-50/50">
                 <div className="w-12 h-12 rounded-full bg-neutral-200 flex items-center justify-center text-neutral-400 shrink-0">
                   <UploadCloud className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-neutral-850">
+                  <h4 className="text-sm font-bold text-neutral-850">
                     Kutubxonaga hujjat yuklash
                   </h4>
-                  <p className="text-[10px] text-neutral-400 mt-1 max-w-[180px] mx-auto leading-normal">
+                  <p className="text-xs text-neutral-400 mt-1 max-w-[180px] mx-auto leading-normal">
                     Fayl yuklash uchun tizimga kiring yoki ro'yxatdan o'ting
                   </p>
                 </div>
                 <button
                   onClick={() => onNavigateToTab("profile")}
-                  className="px-5 py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-neutral-950 rounded-xl font-bold text-xs shadow-md transition-all mt-2"
+                  className="px-6 py-3 min-h-[48px] bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-neutral-950 rounded-xl font-bold text-sm shadow-md transition-all mt-2 w-full sm:w-auto"
                 >
                   Ro'yxatdan o'tish
                 </button>

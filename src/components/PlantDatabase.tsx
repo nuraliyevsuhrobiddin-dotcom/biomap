@@ -76,14 +76,14 @@ export default function PlantDatabase({ onShowOnMap, observations, initialSearch
   }, [allPlants, searchQuery, selectedFamily, selectedStatus]);
 
   return (
-    <div id="plant_database_container" className="flex flex-col gap-6 w-full max-w-7xl mx-auto py-4">
+    <div id="plant_database_container" className="flex flex-col gap-4 sm:gap-6 w-full max-w-7xl mx-auto py-4">
       {/* Search and Filters Hub */}
-      <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-white px-6 py-5 rounded-3xl shadow-sm border border-neutral-200">
+      <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between bg-white px-4 sm:px-6 py-4 sm:py-5 rounded-[20px] shadow-sm border border-neutral-200">
         <div className="relative w-full md:w-96">
           <input
             type="text"
-            placeholder="O‘simlik nomi yoki oilasini yozing..."
-            className="w-full bg-neutral-100 border border-neutral-200 rounded-2xl py-3 pl-11 pr-4 text-sm text-neutral-800 placeholder-neutral-400 focus:outline-none focus:border-brand-primary"
+            placeholder="O'simlik nomi yoki oilasini yozing..."
+            className="w-full bg-neutral-100 border border-neutral-200 rounded-2xl py-3 pl-11 pr-4 text-sm text-neutral-800 placeholder-neutral-400 focus:outline-none focus:border-brand-primary min-h-[48px]"
             value={searchQuery}
             onChange={(e) => {
               setSearchQuery(e.target.value);
@@ -101,7 +101,7 @@ export default function PlantDatabase({ onShowOnMap, observations, initialSearch
 
           {/* Oila bo'yicha filter */}
           <select
-            className="bg-neutral-100 border border-neutral-200 text-xs font-semibold rounded-xl px-3 py-2 text-neutral-700 outline-none focus:border-brand-primary"
+            className="bg-neutral-100 border border-neutral-200 text-sm font-semibold rounded-xl px-3 py-3 min-h-[48px] text-neutral-700 outline-none focus:border-brand-primary flex-1 w-full sm:w-auto"
             value={selectedFamily}
             onChange={(e) => setSelectedFamily(e.target.value)}
           >
@@ -113,7 +113,7 @@ export default function PlantDatabase({ onShowOnMap, observations, initialSearch
 
           {/* Status bo'yicha filter */}
           <select
-            className="bg-neutral-100 border border-neutral-200 text-xs font-semibold rounded-xl px-3 py-2 text-neutral-700 outline-none focus:border-brand-primary"
+            className="bg-neutral-100 border border-neutral-200 text-sm font-semibold rounded-xl px-3 py-3 min-h-[48px] text-neutral-700 outline-none focus:border-brand-primary flex-1 w-full sm:w-auto"
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
           >
@@ -128,7 +128,7 @@ export default function PlantDatabase({ onShowOnMap, observations, initialSearch
       {/* Main Content */}
       <div className="w-full">
         {/* Plant Cards Catalog Grid */}
-        <div id="plant_catalog_grid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div id="plant_catalog_grid" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {filteredPlants.length === 0 ? (
             <div className="col-span-full bg-white rounded-3xl p-12 text-center border border-neutral-200">
               <BookOpen className="w-12 h-12 text-neutral-300 mx-auto mb-4" />

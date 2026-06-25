@@ -269,13 +269,34 @@ export default function AuthPage({
       return;
     }
     setMsg("loading", "Google orqali kirilmoqda...");
+
+    // Dynamic redirect URL based on current origin
+    const redirectUrl = window.location.origin.includes("localhost")
+      ? (import.meta.env.VITE_AUTH_REDIRECT_URL || `${window.location.origin}/success`)
+      : `${window.location.origin}/success`;
+
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: import.meta.env.VITE_AUTH_REDIRECT_URL || `${window.location.origin}/success`,
+        redirectTo: redirectUrl,
       },
     });
     if (error) setMsg("error", error.message);
+  }
+
+  function authUserToProfile(authUser: any): User {
+    const meta = authUser.user_metadata || {};
+    const fullname = meta.fullname || meta.name || authUser.email?.split("@")[0] || "BIOMap tadqiqotchisi";
+    return {
+      id: authUser.id,
+      fullname,
+      email: authUser.email || "",
+      organization: meta.organization || ORGANIZATION_OPTIONS[0],
+      specialty: meta.specialty || SPECIALTY_OPTIONS[0],
+      bio: meta.bio || undefined,
+      avatarUrl: meta.avatar_url || meta.picture || `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(fullname)}&backgroundColor=f59e0b`,
+      registeredAt: authUser.created_at || new Date().toISOString(),
+    };
   }
 
   async function handleLogin(e: React.FormEvent) {
@@ -286,10 +307,46 @@ export default function AuthPage({
     }
 
     setMsg("loading", "Akkaunt tekshirilmoqda...");
-    
-    // Artificial 400ms delay for premium feel
-    await new Promise(resolve => setTimeout(resolve, 400));
 
+    if (isSupabaseConfigured && supabase) {
+      try {
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email: loginEmail.trim(),
+          password: loginPassword,
+        });
+
+        if (error) {
+          // Check if this email exists in localStorage mock database before throwing error
+          // (allows local seeded users to log in even if they are not in Supabase Auth yet)
+          const users = getLocalUsers();
+          const passwords = getLocalPasswords();
+          const emailKey = loginEmail.trim().toLowerCase();
+          const user = users.find(u => u.email.toLowerCase() === emailKey);
+          const correctPassword = passwords[emailKey];
+
+          if (user && correctPassword === loginPassword) {
+            onAuthenticated(user);
+            setMsg("success", "Tizimga muvaffaqiyatli kirdingiz!");
+            return;
+          }
+
+          throw error;
+        }
+
+        if (data.user) {
+          const userProfile = authUserToProfile(data.user);
+          onAuthenticated(userProfile);
+          setMsg("success", "Tizimga muvaffaqiyatli kirdingiz!");
+          return;
+        }
+      } catch (err: any) {
+        console.error("Supabase sign in error:", err);
+        setMsg("error", err.message || "Kirishda xatolik yuz berdi. Parol yoki email noto'g'ri.");
+        return;
+      }
+    }
+
+    // Local fallback if Supabase is offline or not configured
     const users = getLocalUsers();
     const passwords = getLocalPasswords();
     
@@ -327,6 +384,52 @@ export default function AuthPage({
     }
 
     setMsg("loading", "Akkaunt yaratilmoqda...");
+
+    if (isSupabaseConfigured && supabase) {
+      try {
+        const { data, error } = await supabase.auth.signUp({
+          email: regEmail.trim(),
+          password: regPassword,
+          options: {
+            data: {
+              fullname: regFullname.trim(),
+              organization: regOrg,
+              specialty: regSpec,
+              bio: regBio.trim() || undefined,
+            }
+          }
+        });
+
+        if (error) {
+          throw error;
+        }
+
+        if (data.user) {
+          // If session is returned immediately (confirm email is disabled)
+          if (data.session) {
+            const newUser = authUserToProfile(data.user);
+            onAuthenticated(newUser);
+            setMsg("success", "Profil muvaffaqiyatli yaratildi va tizimga kirildi! 🌿");
+          } else {
+            // If email verification is required by Supabase configuration
+            setMsg("success", "Ro'yxatdan o'tish muvaffaqiyatli! Elektron pochtangizni tasdiqlash uchun xat yuborildi. Iltimos, pochtangizni tekshiring.", 8000);
+          }
+          return;
+        }
+      } catch (err: any) {
+        console.error("Supabase sign up error, falling back to local registration:", err);
+        // If email is already registered, report it immediately to user
+        if (err.message?.includes("already registered") || err.status === 400) {
+          setMsg("error", "Ushbu email manzili allaqachon ro'yxatdan o'tgan.");
+          return;
+        }
+        // General network / server not working error
+        setMsg("error", `Tizimga ulanishda xatolik yuz berdi: ${err.message || "noma'lum xato"}`);
+        return;
+      }
+    }
+
+    // Local fallback if Supabase is offline or not configured
     await new Promise(resolve => setTimeout(resolve, 500));
 
     const users = getLocalUsers();

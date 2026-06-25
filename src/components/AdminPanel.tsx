@@ -107,7 +107,7 @@ export default function AdminPanel({
         <div className="w-full max-w-sm animate-fade-in">
           {/* Logo */}
           <div className="flex flex-col items-center mb-8">
-            <div className="w-16 h-16 rounded-2xl bg-amber-500 flex items-center justify-center shadow-2xl mb-4">
+            <div className="w-16 h-16 rounded-[20px] bg-amber-500 flex items-center justify-center shadow-2xl mb-4">
               <Lock className="w-8 h-8 text-neutral-950" />
             </div>
             <h1 className="text-2xl font-black text-white tracking-tight">BIOMap Admin</h1>
@@ -116,7 +116,7 @@ export default function AdminPanel({
 
           <form
             onSubmit={handleLogin}
-            className="bg-neutral-900 rounded-3xl p-6 border border-neutral-800 shadow-2xl flex flex-col gap-4"
+            className="bg-neutral-900 rounded-[20px] p-6 border border-neutral-800 shadow-2xl flex flex-col gap-4"
           >
             <div>
               <label className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest font-mono block mb-2">
@@ -127,7 +127,7 @@ export default function AdminPanel({
                 value={password}
                 onChange={(e) => { setPassword(e.target.value); setLoginError(""); }}
                 placeholder="••••••••••••••••"
-                className="w-full bg-neutral-800 border border-neutral-700 rounded-xl text-white px-4 py-3 text-sm focus:outline-none focus:border-amber-500 transition placeholder-neutral-600"
+                className="w-full bg-neutral-800 border border-neutral-700 rounded-xl text-white px-4 py-3 min-h-[48px] text-sm focus:outline-none focus:border-amber-500 transition placeholder-neutral-600"
                 autoFocus
               />
               {loginError && (
@@ -140,7 +140,7 @@ export default function AdminPanel({
 
             <button
               type="submit"
-              className="w-full bg-amber-500 hover:bg-amber-400 text-neutral-950 font-black py-3 rounded-xl transition flex items-center justify-center gap-2 text-sm"
+              className="w-full bg-amber-500 hover:bg-amber-400 text-neutral-950 font-black py-3 min-h-[48px] rounded-xl transition flex items-center justify-center gap-2 text-sm"
             >
               <ShieldCheck className="w-4.5 h-4.5" />
               Kirish
@@ -202,8 +202,8 @@ export default function AdminPanel({
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-6 flex flex-col gap-6">
 
         {/* Quick stats row */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-          <div className="bg-neutral-900 rounded-2xl p-4 border border-neutral-800 flex items-center gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+          <div className="bg-neutral-900 rounded-[20px] p-4 border border-neutral-800 flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-amber-500/15 flex items-center justify-center text-amber-400 shrink-0">
               <Clock className="w-5 h-5" />
             </div>
@@ -212,7 +212,7 @@ export default function AdminPanel({
               <span className="text-2xl font-black text-amber-400">{pendingObs.length}</span>
             </div>
           </div>
-          <div className="bg-neutral-900 rounded-2xl p-4 border border-neutral-800 flex items-center gap-3">
+          <div className="bg-neutral-900 rounded-[20px] p-4 border border-neutral-800 flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-emerald-500/15 flex items-center justify-center text-emerald-400 shrink-0">
               <CheckCircle2 className="w-5 h-5" />
             </div>
@@ -221,7 +221,7 @@ export default function AdminPanel({
               <span className="text-2xl font-black text-emerald-400">{approvedObs.length}</span>
             </div>
           </div>
-          <div className="bg-neutral-900 rounded-2xl p-4 border border-neutral-800 flex items-center gap-3">
+          <div className="bg-neutral-900 rounded-[20px] p-4 border border-neutral-800 flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-blue-500/15 flex items-center justify-center text-blue-400 shrink-0">
               <Users className="w-5 h-5" />
             </div>
@@ -230,7 +230,7 @@ export default function AdminPanel({
               <span className="text-2xl font-black text-blue-400">{users.length}</span>
             </div>
           </div>
-          <div className="bg-neutral-900 rounded-2xl p-4 border border-neutral-800 flex items-center gap-3">
+          <div className="bg-neutral-900 rounded-[20px] p-4 border border-neutral-800 flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-violet-500/15 flex items-center justify-center text-violet-400 shrink-0">
               <Activity className="w-5 h-5" />
             </div>
@@ -239,7 +239,7 @@ export default function AdminPanel({
               <span className="text-2xl font-black text-violet-400">{observations.length}</span>
             </div>
           </div>
-          <div className="bg-neutral-900 rounded-2xl p-4 border border-neutral-800 flex items-center gap-3">
+          <div className="bg-neutral-900 rounded-[20px] p-4 border border-neutral-800 flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-emerald-500/15 flex items-center justify-center text-emerald-400 shrink-0">
               <ClipboardList className="w-5 h-5" />
             </div>
@@ -248,7 +248,7 @@ export default function AdminPanel({
               <span className="text-2xl font-black text-emerald-400">{news.filter(n => !n.isApproved).length}</span>
             </div>
           </div>
-          <div className="bg-neutral-900 rounded-2xl p-4 border border-neutral-800 flex items-center gap-3">
+          <div className="bg-neutral-900 rounded-[20px] p-4 border border-neutral-800 flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-indigo-500/15 flex items-center justify-center text-indigo-400 shrink-0">
               <FileText className="w-5 h-5" />
             </div>
@@ -260,10 +260,10 @@ export default function AdminPanel({
         </div>
 
         {/* Tab switcher */}
-        <div className="flex gap-1 bg-neutral-900 p-1 rounded-2xl border border-neutral-800 w-fit flex-wrap">
+        <div className="flex gap-1 bg-neutral-900 p-1 rounded-[20px] border border-neutral-800 w-fit flex-wrap">
           <button
             onClick={() => setActiveTab("pending")}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition ${
+            className={`flex items-center gap-2 px-4 py-3 min-h-[48px] rounded-xl text-xs font-bold transition ${
               activeTab === "pending"
                 ? "bg-amber-500 text-neutral-950"
                 : "text-neutral-400 hover:text-white"
@@ -279,7 +279,7 @@ export default function AdminPanel({
           </button>
           <button
             onClick={() => setActiveTab("approved")}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition ${
+            className={`flex items-center gap-2 px-4 py-3 min-h-[48px] rounded-xl text-xs font-bold transition ${
               activeTab === "approved"
                 ? "bg-emerald-600 text-white"
                 : "text-neutral-400 hover:text-white"
@@ -290,7 +290,7 @@ export default function AdminPanel({
           </button>
           <button
             onClick={() => setActiveTab("users")}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition ${
+            className={`flex items-center gap-2 px-4 py-3 min-h-[48px] rounded-xl text-xs font-bold transition ${
               activeTab === "users"
                 ? "bg-blue-600 text-white"
                 : "text-neutral-400 hover:text-white"
@@ -301,14 +301,14 @@ export default function AdminPanel({
           </button>
           <button
             onClick={() => setActiveTab("news")}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition ${
+            className={`flex items-center gap-2 px-4 py-3 min-h-[48px] rounded-xl text-xs font-bold transition ${
               activeTab === "news"
                 ? "bg-emerald-600 text-white"
                 : "text-neutral-400 hover:text-white"
             }`}
           >
             <ClipboardList className="w-4 h-4" />
-            Yangiliklar Moderatsiyasi
+            Yangiliklar
             {news.filter(n => !n.isApproved).length > 0 && (
               <span className={`text-[10px] font-black px-1.5 py-0.5 rounded-full ${activeTab === "news" ? "bg-neutral-950/20" : "bg-emerald-500/20 text-emerald-400"}`}>
                 {news.filter(n => !n.isApproved).length}
@@ -317,14 +317,14 @@ export default function AdminPanel({
           </button>
           <button
             onClick={() => setActiveTab("documents")}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition ${
+            className={`flex items-center gap-2 px-4 py-3 min-h-[48px] rounded-xl text-xs font-bold transition ${
               activeTab === "documents"
                 ? "bg-indigo-600 text-white"
                 : "text-neutral-400 hover:text-white"
             }`}
           >
             <FileText className="w-4 h-4" />
-            Hujjatlar Moderatsiyasi
+            Hujjatlar
             {pendingDocs.length > 0 && (
               <span className={`text-[10px] font-black px-1.5 py-0.5 rounded-full ${activeTab === "documents" ? "bg-neutral-950/20" : "bg-indigo-500/20 text-indigo-400"}`}>
                 {pendingDocs.length}
@@ -337,7 +337,7 @@ export default function AdminPanel({
         {activeTab === "pending" && (
           <div className="flex flex-col gap-4">
             {pendingObs.length === 0 ? (
-              <div className="bg-neutral-900 rounded-3xl p-12 border border-neutral-800 flex flex-col items-center text-center">
+              <div className="bg-neutral-900 rounded-[20px] p-12 border border-neutral-800 flex flex-col items-center text-center">
                 <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-400 mb-4">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
@@ -368,7 +368,7 @@ export default function AdminPanel({
         {activeTab === "approved" && (
           <div className="flex flex-col gap-4">
             {approvedObs.length === 0 ? (
-              <div className="bg-neutral-900 rounded-3xl p-12 border border-neutral-800 flex flex-col items-center text-center">
+              <div className="bg-neutral-900 rounded-[20px] p-12 border border-neutral-800 flex flex-col items-center text-center">
                 <div className="w-16 h-16 rounded-full bg-neutral-800 flex items-center justify-center text-neutral-500 mb-4">
                   <ClipboardList className="w-8 h-8" />
                 </div>
@@ -395,7 +395,7 @@ export default function AdminPanel({
         {activeTab === "users" && (
           <div className="flex flex-col gap-4">
             {users.length === 0 ? (
-              <div className="bg-neutral-900 rounded-3xl p-12 border border-neutral-800 flex flex-col items-center text-center">
+              <div className="bg-neutral-900 rounded-[20px] p-12 border border-neutral-800 flex flex-col items-center text-center">
                 <div className="w-16 h-16 rounded-full bg-neutral-800 flex items-center justify-center text-neutral-500 mb-4">
                   <Users className="w-8 h-8" />
                 </div>
@@ -412,7 +412,7 @@ export default function AdminPanel({
                     return (
                       <div
                         key={user.id}
-                        className="bg-neutral-900 rounded-2xl p-4 border border-neutral-800 flex items-center gap-4"
+                        className="bg-neutral-900 rounded-[20px] p-4 border border-neutral-800 flex items-center gap-4"
                       >
                         <img
                           src={user.avatarUrl || `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(user.fullname)}`}
@@ -442,7 +442,7 @@ export default function AdminPanel({
         {activeTab === "news" && (
           <div className="flex flex-col gap-4">
             {news.filter(n => !n.isApproved).length === 0 ? (
-              <div className="bg-neutral-900 rounded-3xl p-12 border border-neutral-800 flex flex-col items-center text-center">
+              <div className="bg-neutral-900 rounded-[20px] p-12 border border-neutral-800 flex flex-col items-center text-center">
                 <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-400 mb-4">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
@@ -458,7 +458,7 @@ export default function AdminPanel({
                   {news.filter(n => !n.isApproved).map((item) => (
                     <div
                       key={item.id}
-                      className="bg-neutral-900 rounded-2xl border border-amber-500/30 p-5 transition hover:border-neutral-750 flex flex-col gap-3.5"
+                      className="bg-neutral-900 rounded-[20px] border border-amber-500/30 p-4 sm:p-5 transition hover:border-neutral-750 flex flex-col gap-3.5"
                     >
                       <div className="flex items-center justify-between gap-2 flex-wrap pb-2.5 border-b border-neutral-800">
                         <div className="flex items-center gap-2.5">
@@ -485,15 +485,15 @@ export default function AdminPanel({
                         ))}
                       </div>
 
-                      <div className="flex items-center justify-between mt-2 pt-3.5 border-t border-neutral-800 text-[10px] text-neutral-400 font-mono">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-2 pt-3.5 border-t border-neutral-800 text-[10px] text-neutral-400 font-mono">
                         <span>Muallif/Manba: <strong className="text-neutral-300">{item.source}</strong></span>
-                        <div className="flex gap-2">
+                        <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
                           <button
                             onClick={() => {
                               onApproveNews(item.id);
                               showToast(`✅ "${item.title}" yangiligi tasdiqlandi va chop etildi!`, "success");
                             }}
-                            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition shadow-sm"
+                            className="flex items-center justify-center gap-1.5 px-4 py-3 min-h-[48px] rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition shadow-sm w-full sm:w-auto"
                           >
                             <CheckCircle2 className="w-3.5 h-3.5" />
                             Tasdiqlash
@@ -503,7 +503,7 @@ export default function AdminPanel({
                               onDeleteNews(item.id);
                               showToast(`🗑️ "${item.title}" yangiligi rad etildi va o'chirildi.`, "info");
                             }}
-                            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-red-600/25 hover:bg-red-650/45 text-red-400 text-xs font-bold transition border border-red-600/30"
+                            className="flex items-center justify-center gap-1.5 px-4 py-3 min-h-[48px] rounded-xl bg-red-600/25 hover:bg-red-650/45 text-red-400 text-xs font-bold transition border border-red-600/30 w-full sm:w-auto"
                           >
                             <XCircle className="w-3.5 h-3.5" />
                             Rad etish
@@ -522,7 +522,7 @@ export default function AdminPanel({
         {activeTab === "documents" && (
           <div className="flex flex-col gap-4">
             {pendingDocs.length === 0 ? (
-              <div className="bg-neutral-900 rounded-3xl p-12 border border-neutral-800 flex flex-col items-center text-center">
+              <div className="bg-neutral-900 rounded-[20px] p-12 border border-neutral-800 flex flex-col items-center text-center">
                 <div className="w-16 h-16 rounded-full bg-indigo-500/10 flex items-center justify-center text-indigo-400 mb-4">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
@@ -538,7 +538,7 @@ export default function AdminPanel({
                   {pendingDocs.map((doc) => (
                     <div
                       key={doc.id}
-                      className="bg-neutral-900 rounded-2xl border border-indigo-500/30 p-5 transition hover:border-indigo-500/50 flex flex-col gap-4"
+                      className="bg-neutral-900 rounded-[20px] border border-indigo-500/30 p-4 sm:p-5 transition hover:border-indigo-500/50 flex flex-col gap-4"
                     >
                       {/* Doc Header */}
                       <div className="flex items-start justify-between gap-3 flex-wrap pb-3 border-b border-neutral-800">
@@ -611,15 +611,15 @@ export default function AdminPanel({
                       )}
 
                       {/* Action Buttons */}
-                      <div className="flex items-center justify-between mt-1 pt-3.5 border-t border-neutral-800">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-1 pt-3.5 border-t border-neutral-800">
                         <span className="text-[10px] text-neutral-500 font-mono">ID: {doc.id.slice(0, 16)}...</span>
-                        <div className="flex gap-2">
+                        <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
                           <button
                             onClick={() => {
                               onApproveDocument(doc.id);
                               showToast(`✅ "${doc.title}" hujjati tasdiqlandi va kutubxonada chop etildi!`, "success");
                             }}
-                            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition shadow-sm"
+                            className="flex items-center justify-center gap-1.5 px-4 py-3 min-h-[48px] rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition shadow-sm w-full sm:w-auto"
                           >
                             <CheckCircle2 className="w-3.5 h-3.5" />
                             Tasdiqlash
@@ -629,7 +629,7 @@ export default function AdminPanel({
                               onDeleteDocument(doc.id);
                               showToast(`🗑️ "${doc.title}" hujjati rad etildi va o'chirildi.`, "info");
                             }}
-                            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-red-600/25 hover:bg-red-650/45 text-red-400 text-xs font-bold transition border border-red-600/30"
+                            className="flex items-center justify-center gap-1.5 px-4 py-3 min-h-[48px] rounded-xl bg-red-600/25 hover:bg-red-650/45 text-red-400 text-xs font-bold transition border border-red-600/30 w-full sm:w-auto"
                           >
                             <XCircle className="w-3.5 h-3.5" />
                             Rad etish
@@ -648,7 +648,7 @@ export default function AdminPanel({
       {/* ───── DETAIL MODAL ───── */}
       {selectedObs && (
         <div className="fixed inset-0 bg-neutral-950/90 backdrop-blur-md flex items-center justify-center p-4 z-[7000] animate-fade-in">
-          <div className="bg-neutral-900 rounded-3xl max-w-lg w-full border border-neutral-800 shadow-2xl overflow-hidden animate-scale-up">
+          <div className="bg-neutral-900 rounded-[20px] max-w-lg w-full border border-neutral-800 shadow-2xl overflow-hidden animate-scale-up">
             <div className="relative">
               <img
                 src={selectedObs.image}
@@ -737,14 +737,14 @@ export default function AdminPanel({
                 <div className="flex gap-2 mt-2">
                   <button
                     onClick={() => { handleApprove(selectedObs); }}
-                    className="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 transition"
+                    className="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white py-3 min-h-[48px] rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 transition"
                   >
                     <CheckCircle2 className="w-4 h-4" />
                     Tasdiqlash
                   </button>
                   <button
                     onClick={() => { setConfirmReject(selectedObs); setSelectedObs(null); }}
-                    className="flex-1 bg-red-600/20 hover:bg-red-600/40 text-red-400 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 transition border border-red-600/30"
+                    className="flex-1 bg-red-600/20 hover:bg-red-600/40 text-red-400 py-3 min-h-[48px] rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 transition border border-red-600/30"
                   >
                     <XCircle className="w-4 h-4" />
                     Rad etish
@@ -759,7 +759,7 @@ export default function AdminPanel({
       {/* ───── CONFIRM REJECT MODAL ───── */}
       {confirmReject && (
         <div className="fixed inset-0 bg-neutral-950/90 backdrop-blur-md flex items-center justify-center p-4 z-[8000] animate-fade-in">
-          <div className="bg-neutral-900 rounded-3xl max-w-sm w-full border border-red-900/50 shadow-2xl p-6 flex flex-col items-center text-center gap-4 animate-scale-up">
+          <div className="bg-neutral-900 rounded-[20px] max-w-sm w-full border border-red-900/50 shadow-2xl p-6 flex flex-col items-center text-center gap-4 animate-scale-up">
             <div className="w-14 h-14 rounded-full bg-red-500/15 flex items-center justify-center text-red-400 border border-red-500/30">
               <AlertTriangle className="w-7 h-7" />
             </div>
@@ -773,13 +773,13 @@ export default function AdminPanel({
             <div className="flex gap-2 w-full">
               <button
                 onClick={() => setConfirmReject(null)}
-                className="flex-1 bg-neutral-800 hover:bg-neutral-700 text-neutral-200 py-2.5 rounded-xl font-bold text-xs transition"
+                className="flex-1 bg-neutral-800 hover:bg-neutral-700 text-neutral-200 py-3 min-h-[48px] rounded-xl font-bold text-xs transition"
               >
                 Bekor qilish
               </button>
               <button
                 onClick={() => handleReject(confirmReject)}
-                className="flex-1 bg-red-600 hover:bg-red-500 text-white py-2.5 rounded-xl font-bold text-xs transition"
+                className="flex-1 bg-red-600 hover:bg-red-500 text-white py-3 min-h-[48px] rounded-xl font-bold text-xs transition"
               >
                 Rad etish
               </button>
@@ -790,7 +790,7 @@ export default function AdminPanel({
 
       {/* ───── TOAST ───── */}
       {toast && (
-        <div className={`fixed bottom-6 right-6 z-[9000] px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-xs font-semibold animate-slide-up ${
+        <div className={`fixed bottom-6 right-6 z-[9000] px-5 py-3 rounded-[20px] shadow-2xl flex items-center gap-3 text-xs font-semibold animate-slide-up ${
           toast.type === "success" ? "bg-emerald-600 text-white" :
           toast.type === "error" ? "bg-red-600 text-white" :
           "bg-neutral-800 border border-neutral-700 text-white"
@@ -818,14 +818,14 @@ interface ObsCardProps {
 
 function ObservationCard({ obs, mode, onApprove, onReject, onDelete, onView }: ObsCardProps) {
   return (
-    <div className={`bg-neutral-900 rounded-2xl border flex flex-col md:flex-row gap-4 p-4 transition hover:border-neutral-700 ${
+    <div className={`bg-neutral-900 rounded-[20px] border flex flex-col md:flex-row gap-4 p-4 transition hover:border-neutral-700 ${
       mode === "pending" ? "border-amber-500/30" : "border-neutral-800"
     }`}>
       {/* Image */}
       <img
         src={obs.image}
         alt={obs.nomi}
-        className="w-full md:w-24 h-24 rounded-xl object-cover border border-neutral-800 shrink-0"
+        className="w-full md:w-24 h-48 md:h-24 rounded-xl object-cover border border-neutral-800 shrink-0"
         referrerPolicy="no-referrer"
       />
 
@@ -868,10 +868,10 @@ function ObservationCard({ obs, mode, onApprove, onReject, onDelete, onView }: O
         </div>
 
         {/* Action buttons */}
-        <div className="flex items-center gap-2 flex-wrap">
+        <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto mt-2">
           <button
             onClick={onView}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-neutral-300 text-xs font-bold transition"
+            className="flex items-center justify-center gap-1.5 px-4 py-3 min-h-[48px] rounded-xl bg-neutral-800 hover:bg-neutral-700 text-neutral-300 text-xs font-bold transition w-full sm:w-auto"
           >
             <Eye className="w-3.5 h-3.5" />
             Ko'rish
@@ -880,14 +880,14 @@ function ObservationCard({ obs, mode, onApprove, onReject, onDelete, onView }: O
             <>
               <button
                 onClick={onApprove}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition"
+                className="flex items-center justify-center gap-1.5 px-4 py-3 min-h-[48px] rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition w-full sm:w-auto"
               >
                 <CheckCircle2 className="w-3.5 h-3.5" />
                 Tasdiqlash
               </button>
               <button
                 onClick={onReject}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-600/20 hover:bg-red-600/40 text-red-400 text-xs font-bold transition border border-red-600/30"
+                className="flex items-center justify-center gap-1.5 px-4 py-3 min-h-[48px] rounded-xl bg-red-600/20 hover:bg-red-600/40 text-red-400 text-xs font-bold transition border border-red-600/30 w-full sm:w-auto"
               >
                 <XCircle className="w-3.5 h-3.5" />
                 Rad etish
@@ -897,7 +897,7 @@ function ObservationCard({ obs, mode, onApprove, onReject, onDelete, onView }: O
           {mode === "approved" && (
             <button
               onClick={onDelete}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-red-900/30 text-neutral-500 hover:text-red-400 text-xs font-bold transition"
+              className="flex items-center justify-center gap-1.5 px-4 py-3 min-h-[48px] rounded-xl hover:bg-red-900/30 text-neutral-500 hover:text-red-400 text-xs font-bold transition w-full sm:w-auto"
             >
               <Trash2 className="w-3.5 h-3.5" />
               O'chirish

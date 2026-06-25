@@ -774,16 +774,16 @@ export default function StatsDashboard({ observations: allObservations, currentU
                   Ushbu jadval ma'lumotlarini Excel, GIS QGIS yoki boshqa statistik databazalarda tahlil qilish uchun yuklab oling.
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <button
+                <button
                     onClick={handleExportCSV}
-                    className="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm"
+                    className="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-3 min-h-[48px] rounded-xl text-sm font-bold transition flex items-center gap-1.5 shadow-sm"
                   >
                     <FileSpreadsheet className="w-4 h-4 text-emerald-100" />
                     <span>Telemetriyani yuklab olish (CSV / Excel)</span>
                   </button>
-                  <button
+                <button
                     onClick={handleExportJSON}
-                    className="bg-neutral-800 hover:bg-neutral-750 text-neutral-200 px-4 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm"
+                    className="bg-neutral-800 hover:bg-neutral-750 text-neutral-200 px-4 py-3 min-h-[48px] rounded-xl text-sm font-bold transition flex items-center gap-1.5 shadow-sm"
                   >
                     <Download className="w-4 h-4 text-amber-500" />
                     <span>JSON formatida eksport</span>

@@ -290,54 +290,54 @@ export default function AiScanner({
 
   if (!currentUser) {
     return (
-      <div className="w-full max-w-lg mx-auto py-16 flex flex-col items-center justify-center gap-6 text-center animate-fade-in bg-white border border-neutral-200 rounded-3xl p-8 my-8 shadow-sm">
+      <div className="w-full max-w-lg mx-auto py-10 sm:py-16 flex flex-col items-center justify-center gap-6 text-center animate-fade-in bg-white border border-neutral-200 rounded-[20px] p-6 sm:p-8 my-8 shadow-sm">
         <div className="w-20 h-20 rounded-3xl bg-neutral-900 flex items-center justify-center text-brand-primary shadow-xl border border-neutral-800 shrink-0">
           <Lock className="w-8 h-8 text-amber-500 animate-pulse" />
         </div>
         <div>
-          <h2 className="text-2xl font-display font-black text-neutral-900 tracking-tight leading-tight">
+          <h2 className="text-xl sm:text-2xl font-display font-black text-neutral-900 tracking-tight leading-tight">
             Tizimga kirish talab etiladi
           </h2>
-          <p className="text-xs text-neutral-500 mt-2 max-w-sm mx-auto leading-relaxed font-semibold">
-            Botanika AI skaneri va GIS tahlillaridan foydalanish hamda yangi kuzatuvlarni xaritaga qo'shish uchun tizimda ro'yxatdan o'tishingiz yoki profilingizga kirishingiz lozim.
+          <p className="text-sm text-neutral-500 mt-2 max-w-sm mx-auto leading-relaxed font-semibold">
+            Botanika AI skaneri va GIS tahlillaridan foydalanish uchun ro'yxatdan o'tishingiz lozim.
           </p>
         </div>
         <button
           onClick={() => onNavigateToTab("profile")}
-          className="px-8 py-3.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-neutral-950 rounded-2xl font-bold text-sm shadow-lg hover:shadow-xl transition-all scale-100 active:scale-95 cursor-pointer flex items-center gap-2"
+          className="px-8 py-4 min-h-[56px] w-full sm:w-auto bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-neutral-950 rounded-2xl font-bold text-base shadow-lg hover:shadow-xl transition-all scale-100 active:scale-95 cursor-pointer flex items-center justify-center gap-2"
         >
-          <span>Ro‘yxatdan o‘tish / Kirish</span>
+          <span>Ro'yxatdan o'tish / Kirish</span>
         </button>
       </div>
     );
   }
 
   return (
-    <div id="ai_scanner_root" className="w-full max-w-4xl mx-auto py-4 flex flex-col gap-6">
+    <div id="ai_scanner_root" className="w-full max-w-4xl mx-auto py-4 flex flex-col gap-4 sm:gap-6">
       
       {/* Introduction banner */}
-      <div className="bg-white rounded-3xl p-6 border border-neutral-200 shadow-sm flex flex-col md:flex-row items-center gap-6 justify-between">
+      <div className="bg-white rounded-[20px] p-4 sm:p-6 border border-neutral-200 shadow-sm flex flex-col md:flex-row items-start md:items-center gap-4 justify-between">
         <div className="flex gap-4 items-center">
           <div className="w-12 h-12 rounded-2xl bg-amber-500/10 flex items-center justify-center text-brand-primary shrink-0">
             <Cpu className="w-6 h-6" />
           </div>
           <div>
-            <h2 className="text-2xl font-display font-bold text-neutral-900 flex items-center gap-2">
+            <h2 className="text-xl sm:text-2xl font-display font-bold text-neutral-900 flex items-center gap-2">
               <span>Botanika va GIS Sun'iy Intellekti</span>
               <Sparkles className="w-5 h-5 text-brand-primary animate-pulse" />
             </h2>
             <p className="text-xs text-neutral-500 mt-0.5">
-              O'simlik rasmini yuklang yoki kameradan oling. Sun'iy intellekt uning oilasi, Qizil kitob maqomi va yashash hududini unikal aniqlab beradi.
+              O'simlik rasmini yuklang yoki kameradan oling. Sun'iy intellekt uning oilasi, Qizil kitob maqomi va yashash hududini aniqlab beradi.
             </p>
           </div>
         </div>
       </div>
 
       {/* Main Core Scanner Layout */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 items-stretch">
         
         {/* Left Side: Input Frame (Camera or Upload) */}
-        <div className="bg-white rounded-3xl p-6 border border-neutral-200 shadow-sm flex flex-col justify-between min-h-[460px]">
+        <div className="bg-white rounded-[20px] p-4 sm:p-6 border border-neutral-200 shadow-sm flex flex-col justify-between min-h-[380px] sm:min-h-[460px]">
           <div>
             <h3 className="text-base font-bold text-neutral-800 mb-3 font-display">Tahlil Manbasini Tanlang</h3>
             
@@ -350,7 +350,7 @@ export default function AiScanner({
             )}
 
             {/* Media Screen Area */}
-            <div className="relative w-full h-[280px] rounded-2xl bg-neutral-900 overflow-hidden flex items-center justify-center border border-neutral-800 mb-4">
+            <div className="relative w-full h-[220px] sm:h-[280px] rounded-2xl bg-neutral-900 overflow-hidden flex items-center justify-center border border-neutral-800 mb-4">
               
               {/* Image Preview */}
               {imagePreview && !isCameraActive && (
@@ -396,27 +396,27 @@ export default function AiScanner({
           </div>
 
           {/* Action controller buttons */}
-          <div className="flex gap-3">
+          <div className="flex gap-3 mt-3">
             {isCameraActive ? (
               <button
                 onClick={stopCamera}
-                className="flex-1 bg-neutral-800 hover:bg-neutral-700 text-white py-3.5 rounded-2xl font-semibold text-xs transition"
+                className="flex-1 bg-neutral-800 hover:bg-neutral-700 text-white py-3.5 min-h-[48px] rounded-2xl font-semibold text-sm transition"
               >
-                Kamerani o‘chirish
+                Kamerani o'chirish
               </button>
             ) : (
               <button
                 onClick={startCamera}
-                className="flex-1 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 py-3.5 rounded-3xl font-bold text-xs transition flex items-center justify-center gap-2 border border-neutral-300"
+                className="flex-1 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 py-3.5 min-h-[48px] rounded-2xl font-bold text-sm transition flex items-center justify-center gap-2 border border-neutral-300"
               >
                 <Camera className="w-4.5 h-4.5" />
-                <span>Kamera bilan olish</span>
+                <span>Kamera</span>
               </button>
             )}
 
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="flex-1 bg-neutral-900 hover:bg-neutral-800 text-white py-3.5 rounded-3xl font-bold text-xs transition flex items-center justify-center gap-2 shadow-sm"
+              className="flex-1 bg-neutral-900 hover:bg-neutral-800 text-white py-3.5 min-h-[48px] rounded-2xl font-bold text-sm transition flex items-center justify-center gap-2 shadow-sm"
             >
               <Upload className="w-4.5 h-4.5 text-brand-primary" />
               <span>Rasm yuklash</span>
@@ -436,7 +436,7 @@ export default function AiScanner({
             <button
               onClick={analyzePlantImage}
               disabled={isLoading}
-              className="w-full mt-4 bg-brand-primary hover:bg-brand-secondary text-neutral-900 py-4 rounded-2xl font-bold transition shadow-md hover:shadow-xl text-sm flex items-center justify-center gap-2"
+              className="w-full mt-4 bg-brand-primary hover:bg-brand-secondary text-neutral-900 py-4 min-h-[52px] rounded-2xl font-bold transition shadow-md hover:shadow-xl text-sm flex items-center justify-center gap-2"
             >
               <Cpu className="w-5 h-5 animate-spin" style={{ animationDuration: isLoading ? '3s' : '0s' }} />
               <span>{isLoading ? "Qizil Kitob Tahlili Bormoqda..." : "Sun'iy Intellekt Bilan Aniqlash"}</span>
@@ -445,7 +445,8 @@ export default function AiScanner({
         </div>
 
         {/* Right Side: Analysis Output / Informational Loader */}
-        <div className="bg-white rounded-3xl p-6 border border-neutral-200 shadow-sm flex flex-col justify-center relative overflow-hidden min-h-[460px]">
+        <div className="bg-white rounded-[20px] p-4 sm:p-6 border border-neutral-200 shadow-sm flex flex-col justify-center relative overflow-hidden min-h-[300px] sm:min-h-[460px]">
+
           
           {/* State 1: Loading view */}
           {isLoading && (

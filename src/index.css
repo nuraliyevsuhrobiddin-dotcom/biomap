@@ -14,6 +14,29 @@
   --color-gray-border: #E0E0E0;
 }
 
+@layer base {
+  html, body {
+    @apply text-[16px] leading-relaxed text-neutral-900 bg-neutral-50 overflow-x-hidden w-full m-0 p-0;
+    -webkit-tap-highlight-color: transparent;
+  }
+  h1 {
+    @apply text-[32px] leading-tight font-display font-bold;
+  }
+  h2 {
+    @apply text-[24px] leading-snug font-display font-bold;
+  }
+  h3 {
+    @apply text-[20px] leading-normal font-display font-bold;
+  }
+  .caption-text {
+    @apply text-[12px] leading-normal text-neutral-500;
+  }
+  /* Mobile-first constraints */
+  main {
+    @apply w-full max-w-[100vw] overflow-x-hidden;
+  }
+}
+
 /* Custom premium scrollbars for side panels and lists */
 ::-webkit-scrollbar {
   width: 6px;
@@ -99,4 +122,52 @@
 
 .animate-fade-in {
   animation: fade-in 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Slide up animation for map popups */
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Hide scrollbar but keep scroll functionality */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Safe area bottom padding for PWA / iPhone notch */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 8px);
+}
+
+/* Touch targets - minimum 48px for all interactive elements */
+@media (max-width: 768px) {
+  button, a, select, input[type="checkbox"], input[type="radio"] {
+    min-height: 44px;
+  }
+  /* Exception for very small inline buttons */
+  button.no-min-height {
+    min-height: unset;
+  }
+}
+
+/* Responsive typography adjustments */
+@media (max-width: 375px) {
+  h1 { @apply text-[26px]; }
+  h2 { @apply text-[20px]; }
+  h3 { @apply text-[18px]; }
 }
