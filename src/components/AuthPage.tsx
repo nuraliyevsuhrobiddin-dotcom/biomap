@@ -270,15 +270,15 @@ export default function AuthPage({
     }
     setMsg("loading", "Google orqali kirilmoqda...");
 
-    // Dynamic redirect URL based on current origin
-    const redirectUrl = window.location.origin.includes("localhost")
-      ? (import.meta.env.VITE_AUTH_REDIRECT_URL || `${window.location.origin}/success`)
-      : `${window.location.origin}/success`;
+    // Use the active site origin so Google OAuth works from mobile devices
+    // and from local network access as well as localhost.
+    const redirectUrl = import.meta.env.VITE_AUTH_REDIRECT_URL || `${window.location.origin}/success`;
 
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
         redirectTo: redirectUrl,
+        flowType: "pkce",
       },
     });
     if (error) setMsg("error", error.message);
@@ -405,14 +405,13 @@ export default function AuthPage({
         }
 
         if (data.user) {
-          // If session is returned immediately (confirm email is disabled)
+          const newUser = authUserToProfile(data.user);
+          onAuthenticated(newUser);
+
           if (data.session) {
-            const newUser = authUserToProfile(data.user);
-            onAuthenticated(newUser);
             setMsg("success", "Profil muvaffaqiyatli yaratildi va tizimga kirildi! 🌿");
           } else {
-            // If email verification is required by Supabase configuration
-            setMsg("success", "Ro'yxatdan o'tish muvaffaqiyatli! Elektron pochtangizni tasdiqlash uchun xat yuborildi. Iltimos, pochtangizni tekshiring.", 8000);
+            setMsg("success", "Ro'yxatdan o'tish muvaffaqiyatli! Elektron pochtangizni tasdiqlash uchun xat yuborildi, lekin profilingiz tizimga kiritildi.", 8000);
           }
           return;
         }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Compass, BookOpen, Cpu, BarChart, PlusCircle, Layers, Clock, User as UserIcon, Home as HomeIcon, Download, Menu, X } from "lucide-react";
 import { Observation, User, PdfDocument, NewsArticle } from "./types";
 import { SEEDED_OBSERVATIONS } from "./data/plants";
@@ -34,9 +35,18 @@ function authUserToProfile(authUser: SupabaseAuthUser): User {
 }
 
 export default function App() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const [activeTab, setActiveTab] = useState<"home" | "map" | "database" | "scanner" | "stats" | "researcher" | "profile" | "admin">(() => {
-    // /admin URL ga kirsa admin panelni ko'rsat
-    if (window.location.pathname === "/admin") return "admin";
+    const pathname = window.location.pathname;
+    if (pathname === "/admin") return "admin";
+    if (pathname === "/map") return "map";
+    if (pathname === "/database") return "database";
+    if (pathname === "/scanner") return "scanner";
+    if (pathname === "/stats") return "stats";
+    if (pathname === "/researcher") return "researcher";
+    if (pathname === "/profile") return "profile";
     return "home";
   });
 
@@ -113,8 +123,9 @@ export default function App() {
   useEffect(() => {
     const url = new URL(window.location.href);
     const hashParams = new URLSearchParams(url.hash.replace(/^#/, ""));
+    const isCallbackRoute = url.pathname === "/auth/callback" || url.pathname === "/success";
     const hasAuthCallback =
-      url.pathname === "/success" ||
+      isCallbackRoute ||
       url.searchParams.has("code") ||
       url.searchParams.has("id_token") ||
       url.searchParams.has("access_token") ||
@@ -123,21 +134,59 @@ export default function App() {
 
     if (!hasAuthCallback) return;
 
-    setActiveTab("profile");
+    let isMounted = true;
+    let timeoutId: number | undefined;
 
-    if (supabase) {
-      supabase.auth.getSession().then(({ data }) => {
-        if (data.session?.user) {
-          persistAuthenticatedUser(authUserToProfile(data.session.user));
+    const restoreAuthSession = async () => {
+      if (!supabase || !isSupabaseConfigured) {
+        if (isMounted) {
+          setActiveTab("home");
+          navigate("/home", { replace: true });
         }
-        window.history.replaceState({}, document.title, "/");
-      }).catch(() => {
-        window.history.replaceState({}, document.title, "/");
+        return;
+      }
+
+      try {
+        const { data, error } = await supabase.auth.getSession();
+        if (!error && data.session?.user) {
+          persistAuthenticatedUser(authUserToProfile(data.session.user));
+          if (isMounted) {
+            setActiveTab("home");
+            navigate("/home", { replace: true });
+          }
+          return;
+        }
+      } catch {
+        // Ignore and continue to home so the user doesn't get stuck on the callback page.
+      }
+
+      const { data: listener } = supabase.auth.onAuthStateChange((event, session) => {
+        if (!isMounted || !session?.user) return;
+        persistAuthenticatedUser(authUserToProfile(session.user));
+        setActiveTab("home");
+        navigate("/home", { replace: true });
       });
-    } else {
-      window.history.replaceState({}, document.title, "/");
-    }
-  }, []);
+
+      timeoutId = window.setTimeout(() => {
+        if (!isMounted) return;
+        setActiveTab("home");
+        navigate("/home", { replace: true });
+      }, 4000);
+
+      return () => {
+        listener.subscription.unsubscribe();
+        if (timeoutId) window.clearTimeout(timeoutId);
+      };
+    };
+
+    const cleanupPromise = restoreAuthSession();
+
+    return () => {
+      isMounted = false;
+      if (timeoutId) window.clearTimeout(timeoutId);
+      void cleanupPromise.then((cleanup) => cleanup?.());
+    };
+  }, [navigate]);
 
   const persistAuthenticatedUser = (user: User) => {
     setCurrentUser(user);

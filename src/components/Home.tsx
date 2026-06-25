@@ -461,12 +461,12 @@ export default function Home({
         </form>
 
         {/* Premium Category Tabs Navigation */}
-        <div id="home_categories_navigation" className="w-full max-w-xl mx-auto flex flex-col sm:flex-row p-1 bg-neutral-100 rounded-[20px] border border-neutral-200 mt-2 gap-1">
+        <div id="home_categories_navigation" className="w-full max-w-xl mx-auto flex flex-col sm:flex-row p-1 bg-neutral-100 rounded-[20px] border border-neutral-200 mt-3 gap-1.5 sm:gap-1">
           <button
             id="tab_btn_umumiy"
             type="button"
             onClick={() => setActiveTab("umumiy")}
-            className={`flex-1 min-h-[48px] px-2 rounded-xl text-sm font-display font-bold transition duration-200 flex items-center justify-center gap-2 select-none ${
+            className={`flex-1 min-h-[52px] px-2 py-2 rounded-xl text-[12px] sm:text-sm font-display font-bold transition duration-200 flex items-center justify-center gap-2 select-none text-center leading-tight whitespace-normal ${
               activeTab === "umumiy"
                 ? "bg-white text-neutral-900 shadow-sm border border-neutral-200/50"
                 : "text-neutral-500 hover:text-neutral-850 hover:bg-white/50"
@@ -480,7 +480,7 @@ export default function Home({
             id="tab_btn_yangiliklar"
             type="button"
             onClick={() => setActiveTab("yangiliklar")}
-            className={`flex-1 min-h-[48px] px-2 rounded-xl text-sm font-display font-bold transition duration-200 flex items-center justify-center gap-2 select-none ${
+            className={`flex-1 min-h-[52px] px-2 py-2 rounded-xl text-[12px] sm:text-sm font-display font-bold transition duration-200 flex items-center justify-center gap-2 select-none text-center leading-tight whitespace-normal ${
               activeTab === "yangiliklar"
                 ? "bg-white text-neutral-900 shadow-sm border border-neutral-200/50"
                 : "text-neutral-500 hover:text-neutral-850 hover:bg-white/50"
@@ -494,7 +494,7 @@ export default function Home({
             id="tab_btn_kutubxona"
             type="button"
             onClick={() => setActiveTab("kutubxona")}
-            className={`flex-1 min-h-[48px] px-2 rounded-xl text-sm font-display font-bold transition duration-200 flex items-center justify-center gap-2 select-none ${
+            className={`flex-1 min-h-[52px] px-2 py-2 rounded-xl text-[12px] sm:text-sm font-display font-bold transition duration-200 flex items-center justify-center gap-2 select-none text-center leading-tight whitespace-normal ${
               activeTab === "kutubxona"
                 ? "bg-white text-neutral-900 shadow-sm border border-neutral-200/50"
                 : "text-neutral-500 hover:text-neutral-850 hover:bg-white/50"
@@ -562,7 +562,7 @@ export default function Home({
       </div>
 
       {/* Feature Bento Highlights row */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mt-2 md:mt-0">
         
         {/* Core 1: AI scan */}
         <div className="bg-white rounded-[20px] p-5 border border-neutral-200/80 shadow-sm flex gap-4 items-start hover:shadow-md transition w-full">
@@ -570,8 +570,8 @@ export default function Home({
             <Cpu className="w-5 h-5" />
           </div>
           <div>
-            <h4 className="font-display font-bold text-neutral-900">AI Skaner laboratoriyasi</h4>
-            <p className="text-xs text-neutral-500 mt-1 leading-relaxed">
+            <h4 className="font-display font-bold text-neutral-900 break-words">AI Skaner laboratoriyasi</h4>
+            <p className="text-xs text-neutral-500 mt-1 leading-relaxed break-words">
               Yo'lkada yoki dalada topilgan o'simlikni rasmga oling. Kamera va sun'iy intellekt sekunlar ichida turni aniqlab, Qizil Kitob tahlilini beradi.
             </p>
           </div>
@@ -583,8 +583,8 @@ export default function Home({
             <ShieldAlert className="w-5 h-5" />
           </div>
           <div>
-            <h4 className="font-display font-bold text-neutral-900">Taxonomik Qizil Kitob</h4>
-            <p className="text-xs text-neutral-500 mt-1 leading-relaxed">
+            <h4 className="font-display font-bold text-neutral-900 break-words">Taxonomik Qizil Kitob</h4>
+            <p className="text-xs text-neutral-500 mt-1 leading-relaxed break-words">
               O'simliklar oilasi, tarqalish areali va himoya maqomi bo'yicha tartiblangan to'liq ilmiy katalog hamda dorivor xususiyatlar shajarasi.
             </p>
           </div>
@@ -596,8 +596,8 @@ export default function Home({
             <CheckCircle2 className="w-5 h-5" />
           </div>
           <div>
-            <h4 className="font-display font-bold text-neutral-900">Dala nazoratchisi paneli</h4>
-            <p className="text-xs text-neutral-500 mt-1 leading-relaxed">
+            <h4 className="font-display font-bold text-neutral-900 break-words">Dala nazoratchisi paneli</h4>
+            <p className="text-xs text-neutral-500 mt-1 leading-relaxed break-words">
               Botanika instituti tadqiqotchilari uchun mo'ljallangan yagona reestr: dala koordinat nuqtalarini qo'shish va geo-nazorat monitoringini yozish.
             </p>
           </div>
@@ -954,7 +954,7 @@ export default function Home({
                     Kutubxonaga hujjat yuklash
                   </h4>
                   <p className="text-xs text-neutral-400 mt-1 max-w-[180px] mx-auto leading-normal">
-                    Fayl yuklash uchun tizimga kiring yoki ro'yxatdan o'ting
+                    Hujjatni joylash uchun avval hisobga kiring yoki yangi profil yarating.
                   </p>
                 </div>
                 <button
@@ -998,7 +998,7 @@ export default function Home({
                       PDF hujjatini yuklash
                     </h4>
                     <p className="text-[10px] text-neutral-400 mt-1 max-w-[180px] mx-auto leading-normal">
-                      Faylni bosing yoki bu yerga sudrab olib keling (maks: 15MB)
+                      PDF faylni tanlang yoki bu yerga sudrab olib keling (maks: 15MB)
                     </p>
                   </div>
                   
@@ -1119,15 +1119,6 @@ export default function Home({
                         </span>
                         <div className="flex items-center gap-1.5">
                           <span className="text-[9px] text-neutral-400 font-mono font-medium">{doc.size}</span>
-                          {doc.id.startsWith("uploaded-") && (
-                            <button
-                              onClick={(e) => handleDeleteDoc(doc.id, e)}
-                              className="text-neutral-400 hover:text-red-500 p-0.5 rounded transition"
-                              title="Hujjatni o'chirish"
-                            >
-                              <Trash2 className="w-3.5 h-3.5" />
-                            </button>
-                          )}
                         </div>
                       </div>
 
