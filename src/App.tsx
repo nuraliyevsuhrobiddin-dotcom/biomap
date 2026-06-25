@@ -493,53 +493,74 @@ export default function App() {
         </div>
       </header>
 
-      {/* Mobile Hamburger Fullscreen Menu */}
+      {/* Mobile bottom drawer sheet menu (Android/iOS Native Style) */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-[60] bg-white flex flex-col md:hidden animate-fade-in">
-          <div className="flex items-center justify-between p-4 border-b border-neutral-100">
-            <div className="flex items-center gap-2.5">
-              <div className="w-10 h-10 rounded-xl bg-[#FFB300] flex items-center justify-center font-bold text-neutral-900 shadow-md">
-                <Layers className="w-5 h-5 text-neutral-950" />
+        <div className="fixed inset-0 z-[100] md:hidden">
+          {/* Backdrop blur overlay */}
+          <div 
+            className="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+          {/* Bottom sheet drawer */}
+          <div className="absolute bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md rounded-t-[32px] shadow-[0_-10px_40px_rgba(0,0,0,0.15)] flex flex-col max-h-[85vh] animate-slide-up border-t border-neutral-200/50">
+            {/* Native drag handle */}
+            <div className="w-12 h-1.5 bg-neutral-350 rounded-full mx-auto my-3 shrink-0" />
+            
+            {/* Header */}
+            <div className="px-6 pb-4 flex items-center justify-between border-b border-neutral-100 shrink-0">
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-xl bg-amber-500 flex items-center justify-center font-bold text-neutral-900 shadow-sm">
+                  <Layers className="w-4.5 h-4.5 text-neutral-950" />
+                </div>
+                <div>
+                  <span className="text-base font-black text-neutral-900 block leading-none">BIOMap Menyu</span>
+                  <span className="text-[9px] font-mono text-neutral-450 tracking-wider">NAVIGATSIYA</span>
+                </div>
               </div>
-              <span className="text-lg font-display font-black tracking-tight text-neutral-900 block leading-none">
-                BIOMap Menyu
-              </span>
-            </div>
-            <button
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="p-2 text-neutral-500 hover:text-neutral-900 bg-neutral-100 rounded-full"
-            >
-              <X className="w-5 h-5" />
-            </button>
-          </div>
-          
-          <div className="flex flex-col p-4 gap-2 overflow-y-auto pb-20">
-            {[
-              { id: "home", label: "Bosh sahifa", icon: HomeIcon },
-              { id: "map", label: "GIS Xarita", icon: Compass },
-              { id: "database", label: "O'simliklar Katalogi", icon: BookOpen },
-              { id: "scanner", label: "AI Skaner", icon: Cpu },
-              { id: "stats", label: "Statistika", icon: BarChart },
-              { id: "researcher", label: "Kuzatuv qo'shish", icon: PlusCircle },
-              { id: "profile", label: currentUser ? `Profil (${currentUser.fullname.split(" ")[0]})` : "Kirish / Ro'yxatdan o'tish", icon: UserIcon },
-            ].map((item) => (
               <button
-                key={item.id}
-                onClick={() => {
-                  setActiveTab(item.id as any);
-                  setFocusedObsId(null);
-                  setIsMobileMenuOpen(false);
-                }}
-                className={`flex items-center gap-3 p-4 rounded-2xl text-left font-bold transition-all ${
-                  activeTab === item.id 
-                    ? "bg-amber-500/10 text-amber-600 border border-amber-500/20" 
-                    : "bg-neutral-50 text-neutral-700 border border-transparent"
-                }`}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="w-8 h-8 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-500 flex items-center justify-center text-xs font-bold transition"
               >
-                <item.icon className="w-5 h-5" />
-                <span className="text-base">{item.label}</span>
+                ✕
               </button>
-            ))}
+            </div>
+            
+            {/* Scrollable menu options */}
+            <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-2 pb-10">
+              {[
+                { id: "home", label: "Bosh sahifa", desc: "Asosiy yangiliklar, kutubxona va statistika", icon: HomeIcon },
+                { id: "map", label: "GIS Xarita", desc: "Noyob o'simliklar monitoring xaritasi", icon: Compass },
+                { id: "database", label: "O'simliklar Katalogi", desc: "Qizil kitob turlari ensiklopediyasi", icon: BookOpen },
+                { id: "scanner", label: "AI Skaner", desc: "Rasm orqali o'simlik turlarini aniqlash", icon: Cpu },
+                { id: "stats", label: "Statistika", desc: "Hisobotlar va ilmiy tahlillar", icon: BarChart },
+                { id: "researcher", label: "Kuzatuv qo'shish", desc: "Yangi dala hisobotini ro'yxatga olish", icon: PlusCircle },
+                { id: "profile", label: currentUser ? `Profil (${currentUser.fullname})` : "Kirish / Ro'yxatdan o'tish", desc: "Shaxsiy kabinet va sozlamalar", icon: UserIcon },
+              ].map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => {
+                    setActiveTab(item.id as any);
+                    setFocusedObsId(null);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className={`flex items-center gap-3.5 p-3 rounded-2xl text-left transition-all ${
+                    activeTab === item.id 
+                      ? "bg-amber-500/10 text-amber-800 border border-amber-500/20 font-extrabold animate-pulse" 
+                      : "bg-neutral-50 hover:bg-neutral-100 text-neutral-700 border border-transparent"
+                  }`}
+                >
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border ${
+                    activeTab === item.id ? "bg-amber-500 text-slate-900 border-amber-400" : "bg-white border-neutral-200 text-neutral-450"
+                  }`}>
+                    <item.icon className="w-5 h-5" />
+                  </div>
+                  <div className="min-w-0">
+                    <span className="text-sm block font-bold leading-tight">{item.label}</span>
+                    <span className="text-[10px] text-neutral-450 block truncate mt-0.5">{item.desc}</span>
+                  </div>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       )}
@@ -668,22 +689,21 @@ export default function App() {
       <footer className="md:hidden sticky bottom-0 bg-white/95 backdrop-blur-lg border-t border-neutral-200 z-50 p-2 pb-safe shadow-[0_-4px_20px_rgba(0,0,0,0.05)] w-full">
         <div className="flex items-center justify-between gap-1 w-full max-w-[100vw] overflow-x-auto hide-scrollbar px-1">
           {[
-            { id: "home", icon: HomeIcon, label: "Bosh sahifa" },
+            { id: "home", icon: HomeIcon, label: "Asosiy" },
             { id: "map", icon: Compass, label: "Xarita" },
             { id: "database", icon: BookOpen, label: "Katalog" },
-            { id: "scanner", icon: Cpu, label: "AI Scan" },
-            { id: "stats", icon: BarChart, label: "Statistika" },
+            { id: "scanner", icon: Cpu, label: "AI Skaner" },
             { id: "profile", icon: UserIcon, label: currentUser ? "Profil" : "Kirish" }
           ].map(item => (
             <button
               key={item.id}
               onClick={() => setActiveTab(item.id as any)}
-              className={`flex-1 flex flex-col items-center justify-center gap-1 min-h-[48px] py-1 px-0.5 transition-all w-[60px] max-w-[64px] ${
-                activeTab === item.id ? "text-brand-secondary" : "text-neutral-400 hover:text-neutral-600"
+              className={`flex-1 flex flex-col items-center justify-center gap-1 min-h-[48px] py-1 px-0.5 transition-all ${
+                activeTab === item.id ? "text-amber-500 font-extrabold" : "text-neutral-400 hover:text-neutral-600"
               }`}
             >
-              <item.icon className={`w-5 h-5 transition-transform ${activeTab === item.id ? "scale-110" : ""}`} />
-              <span className="text-[10px] font-bold w-full text-center truncate max-w-full px-0.5 leading-tight">{item.label}</span>
+              <item.icon className={`w-5 h-5 transition-transform ${activeTab === item.id ? "scale-115 text-amber-500" : "text-neutral-400"}`} />
+              <span className="text-[9.5px] font-bold w-full text-center leading-tight">{item.label}</span>
             </button>
           ))}
         </div>

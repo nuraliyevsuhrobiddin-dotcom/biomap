@@ -672,39 +672,38 @@ export default function GisMap({
         )}
 
         {/* Mobile-only responsive Map Type and GIS scanning badge */}
-        <div className="flex md:hidden items-center justify-between gap-2 bg-neutral-900/90 backdrop-blur-md p-1 rounded-xl border border-neutral-800">
-          <div className="flex items-center gap-0.5 bg-neutral-950 p-0.5 rounded-lg border border-neutral-850">
-            <button
-              type="button"
-              onClick={() => setMapType("topographic")}
-              className={`px-2 py-1 rounded-md text-[9px] font-extrabold uppercase tracking-wider transition ${
-                mapType === "topographic" ? "bg-amber-500 text-neutral-950" : "text-neutral-400 hover:text-white"
-              }`}
-            >
-              Standart
-            </button>
-            <button
-              type="button"
-              onClick={() => setMapType("satellite")}
-              className={`px-2 py-1 rounded-md text-[9px] font-extrabold uppercase tracking-wider transition ${
-                mapType === "satellite" ? "bg-neutral-800 text-amber-500 border border-neutral-750" : "text-neutral-400 hover:text-white"
-              }`}
-            >
-              Kosmik
-            </button>
-            <button
-              type="button"
-              onClick={() => setMapType("vector")}
-              className={`px-2 py-1 rounded-md text-[9px] font-extrabold uppercase tracking-wider transition ${
-                mapType === "vector" ? "bg-neutral-800 text-white" : "text-neutral-400 hover:text-white"
-              }`}
-            >
-              Vektor
-            </button>
+        <div className="flex md:hidden items-center justify-between gap-1 bg-neutral-900/90 backdrop-blur-md p-1 rounded-xl border border-neutral-800">
+          <div className="flex items-center gap-0.5 bg-neutral-950 p-0.5 rounded-lg border border-neutral-850 flex-1 overflow-x-auto hide-scrollbar">
+            {(["vector", "satellite", "dark", "topographic"] as const).map((type) => {
+              const label = type === "vector" ? "Vek" 
+                          : type === "satellite" ? "Gib"
+                          : type === "dark" ? "Tun"
+                          : "Top";
+              const title = type === "vector" ? "Vektor"
+                          : type === "satellite" ? "Gibrid"
+                          : type === "dark" ? "Tungi"
+                          : "Topografik";
+              const isActive = mapType === type;
+              return (
+                <button
+                  key={type}
+                  type="button"
+                  onClick={() => setMapType(type)}
+                  className={`px-2 py-1 rounded text-[8.5px] font-black uppercase tracking-tighter transition flex-1 text-center ${
+                    isActive 
+                      ? "bg-amber-500 text-neutral-950 font-black shadow-sm" 
+                      : "text-neutral-400 hover:text-white"
+                  }`}
+                  title={title}
+                >
+                  {label}
+                </button>
+              );
+            })}
           </div>
-          <div className="bg-neutral-950/85 backdrop-blur px-2.5 py-1 rounded-full text-[8px] text-neutral-400 flex items-center gap-1 font-mono tracking-wider border border-neutral-850 shrink-0 select-none">
-            <Layers className="w-3 h-3 text-amber-500 animate-pulse" />
-            <span>GIS: ON</span>
+          <div className="bg-neutral-950/85 backdrop-blur px-2 py-1 rounded-lg text-[8px] text-neutral-400 flex items-center gap-0.5 font-mono tracking-tighter border border-neutral-850 shrink-0 select-none">
+            <Layers className="w-2.5 h-2.5 text-amber-500 shrink-0" />
+            <span>GIS: FAOL</span>
           </div>
         </div>
 
@@ -880,7 +879,7 @@ export default function GisMap({
       )}
 
       {/* Scientific layer indicator and Map Type controls */}
-      <div id="gis_map_layer_controls" className="absolute top-3 right-3 md:top-4 md:right-4 z-[1000] flex flex-col gap-2 items-end">
+      <div id="gis_map_layer_controls" className="absolute top-4 right-4 z-[1000] hidden md:flex flex-col gap-2 items-end">
         <div className="bg-neutral-900/95 backdrop-blur-md p-1 rounded-xl md:rounded-2xl shadow-xl flex items-center gap-0.5 md:gap-1 border border-neutral-800 max-w-[85vw] overflow-x-auto hide-scrollbar">
           <button
             onClick={() => setMapType("vector")}
